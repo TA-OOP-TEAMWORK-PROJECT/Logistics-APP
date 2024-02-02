@@ -14,3 +14,5 @@ if __name__ == '__main__':
     print_hi('PyCharm')
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+#Здравейте колеги!! Welcome to the joy-ride for the next two-weeks with our brand new Truck Delivery System APP (TDSA)
