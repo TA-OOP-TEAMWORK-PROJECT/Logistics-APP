@@ -27,7 +27,6 @@ class Truck:
     def max_range_km(self):
         return self._max_range_km
 
-
     #METHODS
     def check_availability(self):
         return self.status in [TruckStatus.FREE, TruckStatus.ON_THE_ROAD_NOT_FULL]
