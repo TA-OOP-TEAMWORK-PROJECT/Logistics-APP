@@ -17,3 +17,24 @@ class CitysDistances:
 distances = CitysDistances()
 distance_adl_per = distances.get_distance('ADL', 'PER')
 print(distance_adl_per)
+
+
+route1 = ['ASP', 'BRI', 'SYD', 'MEL', 'ADL',] 
+route2 = ['ASP', 'ADL', 'MEL', 'SYD', 'BRI',] 
+route3 = ['PER', 'ASP', 'DAR',] 
+route4 = [route1 + route3] 
+
+start_point = 'ASP'
+end_point = 'BRI'
+
+total_distance = 0
+start_index = route2.index(start_point)
+end_index = route2.index(end_point)
+
+for i in range(start_index, end_index):
+    from_location = route2[i]
+    to_location = route2[i + 1]
+    distance = distances.get_distance(from_location, to_location)
+    total_distance += distance
+
+print(f"Total distance from {start_point} to {end_point}: {total_distance} km")
