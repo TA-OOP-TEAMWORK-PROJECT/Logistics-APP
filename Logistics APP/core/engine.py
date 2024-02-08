@@ -1,10 +1,22 @@
-
-#метод, който при час, който е край на деня ще извиква метод в PAckage repository, който е execute() метод.
-# Той: 1. пресмята килограмите/ 2. Разстоянието/ 3. Намира Route
-
-#ako w presmqtaneto sme stihnali limita na kamion za razstoqnie ili kilogrami spirame i tyrsim drug kamion
+from command_factory import CommandFactory
+from errors.invalid_command import InvalidCommand
 
 
+class Engine:
+    def __init__(self, factory: CommandFactory):
+        self._command_factory = factory
 
-#Да гледаме ли за свободно място във вече тръгнал камион?
-#Тук или в друг клас, който ще изпринти какво се случва в края на деня
+    def start(self):
+        output = []
+        while True:
+            try:
+                input_line = input()
+                if input_line.lower() == 'end':
+                    break
+
+                command = self._command_factory.create(input_line)
+                output.append(command.execute())
+            except ValueError as err:
+                output.append(err.args[0])
+
+        print('\n'.join(output))

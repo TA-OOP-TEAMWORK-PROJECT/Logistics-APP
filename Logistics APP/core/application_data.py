@@ -9,7 +9,6 @@ from models.actros import Actros
 from models.man import Man
 from models.scania import Scania
 
-
 class ApplicationData:
     def __init__(self):
         self._packages = []
@@ -24,15 +23,15 @@ class ApplicationData:
     @property
     def routes(self):
         return tuple(self._routes)
-
-    @property
+    
+    @property 
     def customers(self):
         return tuple(self._customers)
 
     @property
     def trucks(self):
         return self._trucks
-
+    
     def create_customer(self, name, phone_number):
         customer = Customer(name, phone_number)
         self._customers.append(customer)
@@ -57,13 +56,13 @@ class ApplicationData:
         return route
 
     # update_route(),show_routes(), show_packages()
-
+        
     def show_package_by_start_end_location(self, start, end):
         for package in self._packages:
             if package.start_location == start and package.end_location == end:
                 return package
-
-    def show_route_by_start_end_location(self, start, end): # by ID?
+    
+    def show_route_by_start_end_location(self, start, end):
         for route in self._routes:
             if route.start_location == start and route.end_location == end:
                 return route
@@ -86,7 +85,7 @@ class ApplicationData:
 
         route.add_package(package)
 
-    def add_truck(self, truck_type, truck_id): # Трябва ли да ги добавяме така или си ги имаме
+    def add_truck(self, truck_type, truck_id):
         if truck_type == "Actros":
             truck = Actros(truck_id)
         elif truck_type == "Man":
@@ -98,7 +97,7 @@ class ApplicationData:
         self._trucks.append(truck)
         return truck
 
-    def search_for_route(self, start_location, end_location): #Може да има повеч1е такива, но различни
+    def search_for_route(self, start_location, end_location):
         for route in self._routes:
             if route.start_location == start_location and route.end_location == end_location:
                 return route

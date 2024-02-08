@@ -1,7 +1,8 @@
 from core.application_data import ApplicationData
 from commands.validation_helpers import validate_params_count
 
-class ViewPackagesCommand:
+
+class ViewRouteCommand:
 
     def __init__(self, params: list[str], app_data: ApplicationData):
         validate_params_count(params, 2, 'ShowRoute')

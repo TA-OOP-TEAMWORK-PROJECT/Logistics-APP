@@ -13,6 +13,12 @@ class CitiesDistances:
     def get_distance(self, from_location, to_location):
         return self.distances[from_location][to_location]
 
+    def calculate_total_route_distance(self, locations):
+        ttl_distance = 0
+        for i in range(len(locations) - 1):
+            ttl_distance += self.get_distance(locations[i], locations[i + 1])
+        return ttl_distance
+
 
 
 distances = CitiesDistances()
