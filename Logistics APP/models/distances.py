@@ -1,4 +1,4 @@
-class CitysDistances:
+class CitiesDistances:
     def __init__(self):
         self.distances = {
             "SYD": {"MEL": 877, "ADL": 1376, "ASP": 2762, "BRI": 909, "DAR": 3935, "PER": 4016},
@@ -14,27 +14,43 @@ class CitysDistances:
         return self.distances[from_location][to_location]
 
 
-distances = CitysDistances()
-distance_adl_per = distances.get_distance('ADL', 'PER')
-print(distance_adl_per)
+
+distances = CitiesDistances()
+
+# route1 = ['ASP', 'BRI', 'SYD', 'MEL', 'ADL',]
+route1 = ['']
+total_route = 0
+first_destin = route1[0]
+for i in range(1, len(route1)):
+
+    a = distances.get_distance(first_destin, route1[i])
+    total_route += a
+    first_destin = route1[i]
+
+print(total_route)
 
 
-route1 = ['ASP', 'BRI', 'SYD', 'MEL', 'ADL',] 
-route2 = ['ASP', 'ADL', 'MEL', 'SYD', 'BRI',] 
-route3 = ['PER', 'ASP', 'DAR',] 
-route4 = [route1 + route3] 
+# distance_adl_per = distances.get_distance('ADL', 'PER')
+# print(distance_adl_per)
 
-start_point = 'ASP'
-end_point = 'BRI'
 
-total_distance = 0
-start_index = route2.index(start_point)
-end_index = route2.index(end_point)
-
-for i in range(start_index, end_index):
-    from_location = route2[i]
-    to_location = route2[i + 1]
-    distance = distances.get_distance(from_location, to_location)
-    total_distance += distance
-
-print(f"Total distance from {start_point} to {end_point}: {total_distance} km")
+# route1 = ['ASP', 'BRI', 'SYD', 'MEL', 'ADL',]
+# route2 = ['ASP', 'ADL', 'MEL', 'SYD', 'BRI',]
+# route3 = ['PER', 'ASP', 'DAR',]
+#
+# route4 = [route1 + route3]
+#
+# start_point = 'ASP'
+# end_point = 'BRI'
+#
+# total_distance = 0
+# start_index = route2.index(start_point)
+# end_index = route2.index(end_point)
+#
+# for i in range(start_index, end_index):
+#     from_location = route2[i]
+#     to_location = route2[i + 1]
+#     distance = distances.get_distance(from_location, to_location)
+#     total_distance += distance
+#
+# print(f"Total distance from {start_point} to {end_point}: {total_distance} km")
