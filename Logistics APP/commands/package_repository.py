@@ -89,57 +89,58 @@ class PackageRepository:
     # rep = PackageRepository(CitiesDistances())
     # rep.order_packager_by_start_location()
 
+    def assign_route_to_package(self):
+        start_city = self.daily_storage[0].start_location
+        city_order = [start_city]
+        current_packages_order = []
+        index = 0
+        while True:  # докато не се изпразни листа с пратките
 
+            min_distance = maxsize  # За да знам, с коя най-близка локация да продължа(старт на друга пратка, който е най- близо)
+            starting_location = self.daily_storage[
+                index].start_location  # start локацията, с която започваме - първата пратка!
 
+            # същевременно гледам и за най-далечната end локация
+            farthest_location = self.distance_repp.get_distance(starting_location, self.daily_storage[0].end_location)
+            passed_end_locations = [self.daily_storage[0].end_location]
 
+            index += 1
+            if index == len(self.daily_storage):
+                current_packages_order.append(last_delivery_package)
+                break
 
+            for package in range(index, len(self.daily_storage)):
 
+                second_city_start_loc = self.daily_storage[package].start_location
+                distance_start_locations = self.distance_repp.get_distance(starting_location, second_city_start_loc)
+                last_location = self.distance_repp.get_distance(start_city, self.daily_storage[package].end_location)
+                passed_loc = self.search_passed_locations(distance_start_locations, starting_location)
 
+                if distance_start_locations <= min_distance:
+                    min_distance = distance_start_locations
+                    next_closest_start = self.daily_storage[package]
 
+                if last_location > farthest_location:
+                    farthest_location = last_location
+                    end_city = self.daily_storage[
+                        package].end_location  # или пакета дори и да го има втори път или да имам паралелно друг списък
+                    # в който пазя градовете?
 
+            current_packages_order.append(next_closest_start)
+            city_order.append(next_closest_start.start_location)
 
+            else:
+            # current_packages_order.append(self.daily_storage[0]) Може би не трябва, защото в последната итерация, ще е останал само един елемент
+            # който ще преценява дистанция до себе си, демек 0 и ще се добави
 
+            current_packages_order.append(end_city)
+        self.daily_storage.remove(next_closest_start)  # Като махне последния елемент ще се спре и while цикъла
 
+        def search_passed_locations(self, distance):
+            passed_locations = ["BRI", "ADL"]
 
-
-
-
-
-
-
-
-
-
-
-
-    # def order_packages_by_end_location(self): #s reverse да използваме горната функция и за двете?
-    #
-    #     while True:
-    #
-    #         min_distance = maxsize #За да знам, с коя най-близка локация да продължа(старт на друга пратка, който е най- близо)
-    #         current_start = self.daily_storage[index].start_location  # новата start локацията, с която продължаваме пътя!
-    #         #същевременно гледам и за най-далечната end локация
-    #
-    #         index += 1
-    #         if index == len(self.daily_storage):
-    #             current_packages_order.append(last_delivery_package)
-    #             break
-    #
-    #         for package in range(index, len(self.daily_storage)):
-    #
-    #             next_start = self.daily_storage[package].start_location
-    #             distance_start_locations = self.distance_repp.get_distance(current_start, next_start)
-    #
-    #             if distance_start_locations <= min_distance:
-    #                 min_distance = distance_start_locations
-    #                 next_closest_start = self.daily_storage[package]
-    #
-    #         current_packages_order.append(next_closest_start)
-
-
-
-
-
+            for i in passed_locations:
+                distance_pass = self.distance_repp.get_distance(starting_location, passed_locations[i])
 
 # pak = PackageRepository()
 # pak.sum_daily_storage_distance()
