@@ -1,18 +1,9 @@
-# This is a sample Python script.
+from core.application_data import ApplicationData
+from core.command_factory import CommandFactory
+from core.engine import Engine
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+app_data = ApplicationData()
+cmd_factory = CommandFactory(app_data)
+engine = Engine(cmd_factory)
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
-
-#Здравейте колеги!! Welcome to the joy-ride for the next two-weeks with our brand new Truck Delivery System APP (TDSA)
+engine.start()

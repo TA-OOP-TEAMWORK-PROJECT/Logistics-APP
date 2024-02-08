@@ -1,6 +1,7 @@
-from commands.validation_helpers import validate_params_count
+from validation_helpers import validate_params_count
 from models.package import Package
 from core.application_data import ApplicationData
+from validation_helpers import try_parse_float
 
 class CreatePackageCommand:
 
@@ -11,7 +12,8 @@ class CreatePackageCommand:
 
     def execute(self):
         start_location, end_location, weight = self._params
-
-        self._app_data.create_package(start_location, end_location, weight)
+        weight = try_parse_float(self._params[2])
+        package = Package(start_location, end_location, float(weight))
+        self._app_data.create_package(package)
 
         return f'Package with {Package.id} was created!'
