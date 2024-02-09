@@ -22,7 +22,7 @@ class CommandFactory:
         cmd_name, *params = input_line.split()
 
         if cmd_name.lower() == 'createcustomer':
-            return CreateCustomerCommand(*params, app_data=self._app_data)
+            return CreateCustomerCommand(params, self._app_data)
         if cmd_name.lower() == "createpackage":
             return CreatePackageCommand(params, self._app_data)
         if cmd_name.lower() == "assignpackagetoroute":
