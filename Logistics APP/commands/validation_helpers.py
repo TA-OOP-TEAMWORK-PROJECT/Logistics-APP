@@ -1,13 +1,13 @@
 from errors.invalid_params import InvalidParams
 
 
-def validate_params_count(params: list[str], count: int, cmd_name: str):
+def validate_params_count(params: list[str], count: int):
     if len(params) != count:
-        raise InvalidParams(cmd_name, count)
+        raise InvalidParams(count)
 
 
-def try_parse_float(float_string: str, msg: str):
+def try_parse_float(float_string: str):
     try:
         return float(float_string)
     except:
-        raise ValueError(msg)
+        raise ValueError('Can not turn to float number!')

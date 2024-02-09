@@ -6,14 +6,14 @@ from validation_helpers import try_parse_float
 class CreatePackageCommand:
 
     def __init__(self, params:list[str], app_data: ApplicationData):
-        validate_params_count(params, 3, 'CreatePackage')
+        validate_params_count(params, 3)
         self._params = params
         self._app_data = app_data
 
     def execute(self):
-        start_location, end_location, weight = self._params
-        weight = try_parse_float(self._params[2])
-        package = Package(start_location, end_location, float(weight))
-        self._app_data.create_package(package)
+        start_location, end_location, weight, customer = self._params
+        weight = try_parse_float(weight)
 
-        return f'Package with {Package.id} was created!'
+        package = self._app_data.create_package(start_location, end_location, float(weight),customer)
+
+        return f'Package with {package.id} was created!'

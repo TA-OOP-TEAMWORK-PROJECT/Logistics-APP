@@ -10,7 +10,7 @@ class Package:
         self._end_location = end_location
         self._weight = weight
         self.customer = customer   #for customer information
-        self.route = None
+        self.route = None # classROUTE
 
     @property
     def start_location(self):
@@ -38,11 +38,15 @@ class Package:
 
     @weight.setter
     def weight(self, value):
-        if value <= 0:
-            raise ValueError('Package can not be less or equal to 0!')
+        if not 0 < value <= 42000:
+            raise ValueError('Package can not be less or equal to 0!') #!!!!
+        self.weight = value
 
     def info(self):
         return (f"Package ID: {self.id}, Start Location: {self._start_location}, "
                 f"End Location: {self._end_location}, Weight: {self._weight}, "
                 f"Customer: {self.customer}, Assigned Route: {self.route if self.route else 'None'}")
 
+
+    def __str__(self):
+        pass

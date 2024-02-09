@@ -42,8 +42,8 @@ class ApplicationData:
                 return customer
         return None
 
-    def create_package(self, start_location, end_location, weight, customer_phone):
-        customer = self.find_customer(customer_phone)
+    def create_package(self, start_location, end_location, weight, customer):
+        customer = self.find_customer(customer)
         if not customer:
             raise ValueError("Customer not found.")
         package = Package(start_location, end_location, weight, customer)
