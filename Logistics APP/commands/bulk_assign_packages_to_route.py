@@ -1,7 +1,7 @@
 from core.application_data import ApplicationData
 
 
-class AssignAllPackagesToRouteCommand:      #Use Case 2
+class BulkAssignPackagesToRouteCommand:      #Use Case 2
     def __init__(self, params, app_data: ApplicationData):
         self.route_id = int(params[0])
         self.package_ids = list(map(int, params[1:]))
