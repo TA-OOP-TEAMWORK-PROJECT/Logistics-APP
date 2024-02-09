@@ -1,4 +1,4 @@
-class CitysDistances:
+class CitiesDistance:
     def __init__(self):
         self.distances = {
             "SYD": {"MEL": 877, "ADL": 1376, "ASP": 2762, "BRI": 909, "DAR": 3935, "PER": 4016},
@@ -20,7 +20,7 @@ class CitysDistances:
         return ttl_distance
 
 
-distances = CitysDistances()
+distances = CitiesDistance()
 distance_adl_per = distances.get_distance('ADL', 'PER')
 print(distance_adl_per)
 

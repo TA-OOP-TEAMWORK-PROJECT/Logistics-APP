@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from generate_id.id_generator import RouteIdGenerator
-from distances import CitysDistances
+from distances import CitiesDistance
 from event_log import EventLog
 from actros import Actros
 from man import Man
@@ -17,7 +17,7 @@ class Route:
         self.expected_arrival_time = None
         self.assigned_truck = None
         self.packages = []
-        self.city_distances = CitysDistances()
+        self.city_distances = CitiesDistance()
         self.event_logs = []
         self.event_logs.append(EventLog(f"Route {route_id} created."))
 
