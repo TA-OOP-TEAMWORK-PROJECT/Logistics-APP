@@ -1,5 +1,5 @@
 from models.customer import Customer
-from models.distances import CitiesDistances
+from models.distances import CitiesDistance
 from models.package import Package
 from sys import maxsize
 
@@ -7,7 +7,7 @@ from sys import maxsize
 class PackageRepository:
 
 
-    def __init__(self, city_dist: CitiesDistances):
+    def __init__(self, city_dist: CitiesDistance):
         customer = Customer('Goshe', '359899403020')
         self.daily_storage = [Package("ADL", "MEL", 150, customer),Package("ADL", "MEL", 150, customer), Package("BRI", "MEL", 15, customer), Package("ADL", "MEL", 150, customer)]
         self.distance_repp = city_dist
