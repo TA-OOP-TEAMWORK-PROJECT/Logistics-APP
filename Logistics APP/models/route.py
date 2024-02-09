@@ -12,7 +12,7 @@ class Route:
         self.route_id = route_id
         self.start_location = start_location
         self.end_location = end_location
-        self.departure_time = departure_time
+        self.departure_time = departure_time # (20:00)
         self.expected_arrival_time = None
         self.assigned_truck = None
         self.packages = []
@@ -20,6 +20,7 @@ class Route:
         self.event_logs = []
         self.event_logs.append(EventLog(f"Route {route_id} created."))
         self.route = [start_location, end_location]
+
 
     def add_to_route(self, package):
         dist = self.distances.get_distance(self.start_location, package.start_location)
@@ -109,6 +110,7 @@ class Route:
                 f"End Location: {self.end_location}, Departure Time: {self.departure_time}, "
                 f"Expected Arrival Time: {self.expected_arrival_time}, "
                 f"Assigned Truck: {self.assigned_truck.truck_id if self.assigned_truck else 'None'}")
+# f"{Sydney} (Oct 12th 06:00h) → Melbourne (Oct 12th 20:00h) → Adelaide (Oct 13th 15:00h)
 
     def is_in_progress(self):
         now = datetime.now()
