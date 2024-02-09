@@ -9,6 +9,9 @@ from commands.view_package_info_by_id import ViewPackageInfoByIdCommand
 from commands.view_route import ViewRouteCommand
 from commands.view_route_in_progress import ViewRoutesInProgressCommand
 from commands.view_unassigned_packages import ViewUnassignedPackagesCommand
+from commands.assign_package_to_route import AssignPackageToRouteCommand
+from commands.bulk_assign_packages_to_route import BulkAssignPackagesToRouteCommand
+
 
 class CommandFactory:
     def __init__(self, data: ApplicationData):
@@ -22,6 +25,10 @@ class CommandFactory:
             return CreateCustomerCommand(*params, app_data=self._app_data)
         if cmd_name.lower() == "createpackage":
             return CreatePackageCommand(params, self._app_data)
+        if cmd_name.lower() == "assignpackagetoroute":
+            return AssignPackageToRouteCommand(params, self._app_data)
+        if cmd_name.lower() == "bulkassignpackagestoroute":
+            return BulkAssignPackagesToRouteCommand(params, self._app_data)
         if cmd_name.lower() == "createroute":
             return CreateRouteCommand(params, self._app_data)
         if cmd_name.lower() == "viewpackage":
