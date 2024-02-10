@@ -60,15 +60,15 @@ class BulkAssignPackagesToRouteCommand:      #Use Case 2
         if (0 <= distance <= 13000) and (0 <= load <= 26000):
             return self.app_data.add_truck('Scania', truck_id=10003)
 
-
-    @staticmethod
-    def add_days_to_now(time1):
-        time1 + timedelta(days=d)
-
-        if self.expected_arrival_time.hour >= 20:
-            remaining_hours = self.expected_arrival_time.hour - 20
-            next_day_start = self.expected_arrival_time.replace(hour=6) + timedelta(days=1)
-            self.expected_arrival_time = next_day_start + timedelta(hours=remaining_hours)
+    #
+    # @staticmethod
+    # def add_days_to_now(time1):
+    #     time1 + timedelta(days=d)
+    #
+    #     if self.expected_arrival_time.hour >= 20:
+    #         remaining_hours = self.expected_arrival_time.hour - 20
+    #         next_day_start = self.expected_arrival_time.replace(hour=6) + timedelta(days=1)
+    #         self.expected_arrival_time = next_day_start + timedelta(hours=remaining_hours)
 
 
 
