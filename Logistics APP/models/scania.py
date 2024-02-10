@@ -7,6 +7,7 @@ class Scania(Truck):
     capacity_kg = 42000
     max_range_km = 8000
 
+    # трябва да се генерира, не да го задаваме ние
     def __init__(self, truck_id):
         if truck_id not in Scania.vehicle_ids:
             raise ValueError(f"Truck ID {truck_id} is not valid for Scania trucks!")

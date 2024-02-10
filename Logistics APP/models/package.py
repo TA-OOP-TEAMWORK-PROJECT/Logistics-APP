@@ -11,6 +11,9 @@ class Package:
         self._weight = weight
         self.customer = customer   #for customer information
         self.route = None # classROUTE
+        self.statuse = None
+        self.daily_storage = []
+
 
     @property
     def start_location(self):
