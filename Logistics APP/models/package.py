@@ -10,8 +10,8 @@ class Package:
         self._end_location = end_location
         self._weight = weight
         self.customer = customer   #for customer information
-        self.route = None # classROUTE
-        self.statuse = None
+        self.route = None    # classROUTE
+        self.status = None
         self.daily_storage = []
 
 
@@ -43,7 +43,7 @@ class Package:
     def weight(self, value):
         if not 0 < value <= 42000:
             raise ValueError('Package can not be less or equal to 0!') #!!!!
-        self.weight = value
+        self._weight = value
 
     def info(self):
         return (f"Package ID: {self.id}, Start Location: {self._start_location}, "
