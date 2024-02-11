@@ -2,7 +2,7 @@ from core.application_data import ApplicationData
 from errors.invalid_command import InvalidCommand
 from commands.create_customer import CreateCustomerCommand
 from commands.create_package import CreatePackageCommand
-from commands.create_route import CreateRouteCommand
+from commands.create_delivery_route import CreateDeliveryRouteCommand
 from commands.search_route import SearchRouteCommand
 from commands.view_package import ViewPackagesCommand
 from commands.view_package_info_by_id import ViewPackageInfoByIdCommand
@@ -29,8 +29,8 @@ class CommandFactory:
             return AssignPackageToRouteCommand(params, self._app_data)
         if cmd_name.lower() == "bulkassignpackagestoroute":
             return BulkAssignPackagesToRouteCommand(params, self._app_data)
-        if cmd_name.lower() == "createroute":
-            return CreateRouteCommand(params, self._app_data)
+        if cmd_name.lower() == "createdeliveryroute":
+            return CreateDeliveryRouteCommand(params, self._app_data)
         if cmd_name.lower() == "viewpackage":
             return ViewPackagesCommand(params, self._app_data)
         if cmd_name.lower() == "searchroute":

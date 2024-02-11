@@ -1,6 +1,6 @@
 import datetime
 
-from commands.create_route import CreateRouteCommand
+from commands.create_delivery_route import CreateDeliveryRouteCommand
 from core.application_data import ApplicationData
 from models.distances import CitiesDistances
 

@@ -81,6 +81,7 @@ class Route:
             self.event_logs.append(EventLog(f"Truck {truck.truck_id} assigned to route {self.route_id}."))
         else:
             self.event_logs.append(
+                EventLog(f"Truck {truck.truck_id} is not available or not compatible with the route requirements."))
             raise ValueError(f"Truck {truck.truck_id} is not available or not compatible with the route requirements.")
 
 
@@ -100,12 +101,12 @@ class Route:
     #         self.event_logs.append(EventLog(f"Estimated arrival at {next_location}: {current_time}."))
 
         # Пресмятаме времето от последната междинна спирка до крайната спирка.
-        final_leg_distance = self.distances.get_distance(self.route[-1]['location'], self.end_location)
-        final_leg_travel_time = timedelta(hours=final_leg_distance / average_speed_kmh)
-        self.expected_arrival_time = current_time + final_leg_travel_time
-
-        self.event_logs.append(
-            EventLog(f"Estimated arrival at final destination {self.end_location}: {self.expected_arrival_time}."))
+        # final_leg_distance = self.distances.get_distance(self.route[-1]['location'], self.end_location)
+        # final_leg_travel_time = timedelta(hours=final_leg_distance / average_speed_kmh)
+        # self.expected_arrival_time = current_time + final_leg_travel_time
+        #
+        # self.event_logs.append(
+        #     EventLog(f"Estimated arrival at final destination {self.end_location}: {self.expected_arrival_time}."))
 
     def info(self):
         return (f"Route ID: {self.route_id}, Start Location: {self.start_location}, "

@@ -1,14 +1,15 @@
-from truck import Truck
+from models.truck import Truck
+from generate_id.id_generator import TruckIdGenerator
 
 
 class Actros(Truck):
+    actros_id_generator = TruckIdGenerator(1026, 1040)
     truck_brand = "Actros"
     capacity_kg = 26000
     max_range_km = 13000
 
-    def __init__(self, truck_id):
-        if truck_id not in Actros.vehicle_ids:
-            raise ValueError(f"Truck ID {truck_id} is not valid for Actros trucks!")
-        super().__init__(truck_id, truck_brand=Actros.truck_brand,
-                         capacity_kg=Actros.capacity_kg, max_range_km=Actros.max_range_km)
+    def __init__(self):
+        truck_id = Actros.actros_id_generator.get_id()
+        super().__init__(truck_id, Actros.truck_brand,
+                         Actros.capacity_kg, Actros.max_range_km)
 

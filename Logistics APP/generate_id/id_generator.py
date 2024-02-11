@@ -14,19 +14,22 @@ class RouteIdGenerator:
         cls.id_count += 1 
         return f'Route{cls.id_count:05d}'
 
+
 class TruckIdGenerator:
-    scania_brand_id = range(1001, 1011) # да не е повече или равно от 1011
-    vehicle_ids_id = range(1011, 1026)
-    actros_brand_id = range(1026, 1041)
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+        self.available_ids = set(range(start, end + 1))
+        self.used_ids = set()
 
+    def get_id(self):
+        if not self.available_ids:
+            raise Exception("No IDs available.")
+        new_id = self.available_ids.pop()
+        self.used_ids.add(new_id)
+        return new_id
 
-    def __init__(self,brand):
-        self.brand = brand
+    def reset(self):        #Използваме го само за тестовете, защото вади Exception: No IDs available., без него.
+        self.available_ids = set(range(self.start, self.end + 1))
+        self.used_ids = set()
 
-    def generate_truck_id(self):
-        if self.brand == 'Scania':
-            return TruckIdGenerator.scania_brand_id.next()
-        elif self.brand == 'Man':
-            pass
-        elif self.brand == 'Actros':
-            pass

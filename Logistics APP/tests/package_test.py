@@ -38,15 +38,15 @@ class Package_Should(unittest.TestCase):
 
     def test_weight_setter_WhenGivenValidValues(self):
         # Arrange & Act
-        self.package.weight = 500
+        self.package.weight = 22000
 
         # Assert
-        self.assertEqual(self.package.weight, 500)
+        self.assertEqual(self.package.weight, 22000)
 
     def test_weight_setter_WhenGivenInvalidValues(self):
         # Arrange & Act & Assert
         with self.assertRaises(ValueError):
-            self.package.weight = -100
+            self.package.weight = -1
         with self.assertRaises(ValueError):
             self.package.weight = 42001
 

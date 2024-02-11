@@ -1,15 +1,14 @@
-from truck import Truck
-
+from models.truck import Truck
+from generate_id.id_generator import TruckIdGenerator
 
 class Scania(Truck):
-
+    scania_id_generator = TruckIdGenerator(1001, 1010)
     truck_brand = "Scania"
     capacity_kg = 42000
     max_range_km = 8000
 
     # трябва да се генерира, не да го задаваме ние
-    def __init__(self, truck_id):
-        if truck_id not in Scania.vehicle_ids:
-            raise ValueError(f"Truck ID {truck_id} is not valid for Scania trucks!")
-        super().__init__(truck_id, truck_brand=Scania.truck_brand,
-                         capacity_kg=Scania.capacity_kg, max_range_km=Scania.max_range_km)
+    def __init__(self):
+        truck_id = Scania.scania_id_generator.get_id()
+        super().__init__(truck_id, Scania.truck_brand,
+                         Scania.capacity_kg, Scania.max_range_km)

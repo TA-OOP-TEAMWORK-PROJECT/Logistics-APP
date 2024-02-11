@@ -1,7 +1,7 @@
-from enum import Enum, auto
+from enum import Enum
 
 
 class TruckStatus(Enum):
-    FREE = auto()
-    ON_THE_ROAD_NOT_FULL = auto()
-    ON_THE_ROAD_FULL = auto()
+    FREE = 'free'
+    ON_THE_ROAD_NOT_FULL = 'on_the_road_not_full'
+    ON_THE_ROAD_FULL = 'on_the_road_full'

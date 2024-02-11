@@ -1,2 +1,0 @@
-class ViewTruck:
-    pass

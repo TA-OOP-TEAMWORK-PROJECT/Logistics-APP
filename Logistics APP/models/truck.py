@@ -1,4 +1,4 @@
-from truck_status import TruckStatus
+from models.truck_status import TruckStatus
 
 
 class Truck:
@@ -43,11 +43,9 @@ class Truck:
             raise ValueError("We cannot have more packages. The truck is full!")
 
     def assign_to_route(self, route_id):
-        if self.status == TruckStatus.FREE:
-            self.status = TruckStatus.ON_THE_ROAD_NOT_FULL
+        if self.check_availability():
             self.current_route = route_id
-        elif self.status == TruckStatus.ON_THE_ROAD_NOT_FULL:
-            pass
+            self.status = TruckStatus.ON_THE_ROAD_NOT_FULL
         else:
             raise Exception("Truck is not available for new assignments")
 

@@ -3,7 +3,7 @@ from models.distances import CitiesDistances
 from models.route import Route
 from core.application_data import ApplicationData
 
-class CreateRouteCommand:
+class CreateDeliveryRouteCommand:
     def __init__(self, params:list [str], app_data:ApplicationData):
         validate_params_count(params , 4)
         self._params = params
