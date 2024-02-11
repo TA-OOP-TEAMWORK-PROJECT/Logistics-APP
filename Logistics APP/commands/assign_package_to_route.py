@@ -36,6 +36,7 @@ class AssignPackageToRouteCommand:       #Use case 1
                 if k == i.start_location:         #Ако града, в който сме в момента е техният старт град, я товаря
                     pak.append(i)                  #добарям пратката като натоварена
                     some_destination_load += i.weight  #Пресмятам килограмите
+                    end_loc.append(i.end_location)
                 for end in range(len(pak)):            #ПРоверявам дали случайно не сме в град, в който пратка трябва да се свали
                     if k == pak[end].end_location:      #Ако да я изваждам
                         some_destination_load -= pak[end].weight
@@ -45,17 +46,6 @@ class AssignPackageToRouteCommand:       #Use case 1
         raise ValueError ('Not enough free space')
 
 
-
-
-
-
-
-
-        #
-        #
-        #
-        #
-        #
         # start_index = 0
         # end_index = 0
         # cnt = 0 #итерация през часовеъте и като се свалят килограмите, има място

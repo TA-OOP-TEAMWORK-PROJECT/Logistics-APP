@@ -2,7 +2,7 @@ from truck import Truck
 
 
 class Scania(Truck):
-    vehicle_ids = tuple(range(1001, 1011))
+
     truck_brand = "Scania"
     capacity_kg = 42000
     max_range_km = 8000

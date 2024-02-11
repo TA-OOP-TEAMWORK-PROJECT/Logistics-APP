@@ -2,7 +2,7 @@ from truck import Truck
 
 
 class Man(Truck):
-    vehicle_ids = tuple(range(1011, 1026))
+
     truck_brand = "Man"
     capacity_kg = 37000
     max_range_km = 10000

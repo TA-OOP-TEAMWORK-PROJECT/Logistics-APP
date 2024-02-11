@@ -21,50 +21,47 @@ class Route:
         self.distances = CitiesDistances()
 
 
-        @property
-        def load(self):  # не е current, защото се иска за целия път
-            return sum(package.weight for package in self.packages)
+    @property
+    def load(self):  # не е current, защото се иска за целия път
+        return sum(package.weight for package in self.packages)
 
-        def calculate_location_distance(self, first_locstion, second_location):
-            return self.distance.get_distance(first_locstion, second_location)
+    def calculate_location_distance(self, first_locstion, second_location):
+        return self.distance.get_distance(first_locstion, second_location)
 
-        def add_intermediate_stop(self, stop_location, expected_arrival_time):
-            self.intermediate_stops.append({'location': stop_location, 'expected arrival time': expected_arrival_time})
-            self.event_logs.append(EventLog(f"Stop added: {stop_location}."))
+    # def add_intermediate_stop(self, stop_location, expected_arrival_time):
+    #     self.intermediate_stops.append({'location': stop_location, 'expected arrival time': expected_arrival_time})
+    #     self.event_logs.append(EventLog(f"Stop added: {stop_location}."))
 
-        def add_package(self, package):
-            if not self.assigned_truck:
-                raise ValueError("No truck assigned to the route yet.")
-            if package.weight + self.current_load() > self.assigned_truck.capacity_kg:
-                raise ValueError("Adding this package would exceed the truck's capacity.")
-            if package.start_location != self.start_location or package.end_location != self.end_location:
-                raise ValueError("Package start or end location does not match the route.")
-            self.packages.append(package)
+    def add_package(self, package):
+        if not self.assigned_truck:
+            raise ValueError("No truck assigned to the route yet.")
+        if package.weight + self.current_load() > self.assigned_truck.capacity_kg:
+            raise ValueError("Adding this package would exceed the truck's capacity.")
+        if package.start_location != self.start_location or package.end_location != self.end_location:
+            raise ValueError("Package start or end location does not match the route.")
+        self.packages.append(package)
 
-        @property
-        def load(self):  # не е current, защото се иска за целия път
-            return sum(package.weight for package in self.packages)
+    @property
+    def load(self):  # не е current, защото се иска за целия път
+        return sum(package.weight for package in self.packages)
 
-        def in_between_load(self):  # от локация до лолация!
-            pass
+    def in_between_load(self):  # от локация до лолация!
+        pass
 
-        def premahwane_na_towar_pti_end_lokaciq(self):
-            pass
+    def premahwane_na_towar_pti_end_lokaciq(self):
+        pass
 
+    def calculate_route_distance(self):
+        locations_sequence = [self.start_location] + [stop['location'] for stop in self.stops] + [self.end_location]
+        return self.distances.calculate_total_route_distance(locations_sequence)
 
-        def calculate_route_distance(self):
-            locations_sequence = [self.start_location] + [stop['location'] for stop in self.stops] + [self.end_location]
-            return self.distances.calculate_total_route_distance(locations_sequence)
-
-
-
-        def truck_is_compatible(self, truck):
-            total_distance = self.calculate_route_distance()
-            if total_distance > truck.max_range_km:
-                return False
-            if sum(package.weight for package in self.packages) + truck.current_load_kg > truck.capacity_kg:
-                return False
-            return True
+    def truck_is_compatible(self, truck):
+        total_distance = self.calculate_route_distance()
+        if total_distance > truck.max_range_km:
+            return False
+        if sum(package.weight for package in self.packages) + truck.current_load_kg > truck.capacity_kg:
+            return False
+        return True
 
 
     def get_truck_instance_by_id(self, truck_id):

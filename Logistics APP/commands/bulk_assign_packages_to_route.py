@@ -51,7 +51,8 @@ class BulkAssignPackagesToRouteCommand:      #Use Case 2
 
     def assign_truck(self, distance, load):
 
-        if (0 <= distance <= 8000) and ( 0 <= load <= 42000):
+        if (0 <= distance  <= 8000) and ( 0 <= load <= 42000):
+
             return self.app_data.add_truck('Scania', truck_id=10001)
 
         if (0 <= distance <= 10000) and (0 <= load <= 37000):
