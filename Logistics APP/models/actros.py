@@ -2,7 +2,6 @@ from truck import Truck
 
 
 class Actros(Truck):
-    vehicle_ids = tuple(range(1026, 1041))
     truck_brand = "Actros"
     capacity_kg = 26000
     max_range_km = 13000
