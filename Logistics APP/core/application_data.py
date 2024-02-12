@@ -48,13 +48,13 @@ class ApplicationData:
         for pkg in self.daily_packages:
             if pkg.id == package_id:
                 return pkg
-            return None
+        return None
 
     def find_route(self, route_id):
         for rt in self._routes:
             if rt.route_id == route_id:
                 return rt
-            return None
+        return None
 
     # def search_for_route(self, start_location, end_location):
     #     for route in self._routes:
@@ -105,19 +105,19 @@ class ApplicationData:
         self.daily_packages.append(package)
         return package
 
-    def create_route(self, start_location, end_location):
-        route = Route(start_location, end_location)
+    def create_route(self, start_location, end_location, departure_time, arrival_time):
+        route = Route(start_location, end_location, departure_time, arrival_time)
         self._routes.append(route)
         return route
 
     # update_route(),show_routes(), show_packages()
-    def add_truck(self, truck_type, truck_id):
+    def add_truck(self, truck_type):
         if truck_type == "Actros":
-            truck = Actros(truck_id)
+            truck = Actros()
         elif truck_type == "Man":
-            truck = Man(truck_id)
+            truck = Man()
         elif truck_type == "Scania":
-            truck = Scania(truck_id)
+            truck = Scania()
         else:
             raise ValueError("Unknown truck type.")
         self._trucks.append(truck)

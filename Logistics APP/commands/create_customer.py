@@ -16,4 +16,4 @@ class CreateCustomerCommand:
         
         self._app_data.create_customer(name, number)
         
-        return f'New customer with {name} and {number} created!'  
+        return f'New customer with name {name} and number {number} created!'

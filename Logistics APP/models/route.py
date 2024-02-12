@@ -1,22 +1,22 @@
 from datetime import datetime, timedelta
 from generate_id.id_generator import RouteIdGenerator
-from distances import CitiesDistances
-from event_log import EventLog
-from actros import Actros
-from man import Man
-from scania import Scania
-from core.application_data import ApplicationData
+from models.distances import CitiesDistances
+from models.event_log import EventLog
+from models.actros import Actros
+from models.man import Man
+from models.scania import Scania
+# from core.application_data import ApplicationData
 
 class Route:
-    def __init__(self, start_location, end_location):
+    def __init__(self, start_location, end_location, departure_time, expected_arrival_time):
         route_id = RouteIdGenerator.generate_next_route_id()
         self.route_id = route_id
         self.start_location = start_location
         self.end_location = end_location
-        self.departure_time = ApplicationData.add_departure_time()
-        self.expected_arrival_time = None
+        self.departure_time = departure_time
+        self.expected_arrival_time = expected_arrival_time
         self.assigned_truck = None
-        self.route = {start_location: self.departure_time, end_location:self.expected_arrival_time}
+        # self.route = {start_location: self.departure_time, end_location:self.expected_arrival_time}
         self.packages = [] #tuple?
         self.distances = CitiesDistances()
 
@@ -25,8 +25,8 @@ class Route:
     def load(self):  # не е current, защото се иска за целия път
         return sum(package.weight for package in self.packages)
 
-    def calculate_location_distance(self, first_locstion, second_location):
-        return self.distance.get_distance(first_locstion, second_location)
+    def calculate_location_distance(self, first_location, second_location):
+        return self.distance.get_distance(first_location, second_location)
 
     # def add_intermediate_stop(self, stop_location, expected_arrival_time):
     #     self.intermediate_stops.append({'location': stop_location, 'expected arrival time': expected_arrival_time})
@@ -65,11 +65,11 @@ class Route:
 
 
     def get_truck_instance_by_id(self, truck_id):
-        if truck_id in Actros.vehicle_ids:
+        if truck_id in Actros.actros_id_generator:
             return Actros(truck_id)
-        elif truck_id in Man.vehicle_ids:
+        elif truck_id in Man.man_id_generator:
             return Man(truck_id)
-        elif truck_id in Scania.vehicle_ids:
+        elif truck_id in Scania.scania_id_generator:
             return Scania(truck_id)
         else:
             raise ValueError(f"Truck ID {truck_id} is not valid !")

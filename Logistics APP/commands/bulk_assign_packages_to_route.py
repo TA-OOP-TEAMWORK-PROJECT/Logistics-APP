@@ -1,6 +1,6 @@
-import datetime
+from datetime import datetime, date, timedelta
 
-from commands.create_delivery_route import CreateDeliveryRouteCommand
+
 from core.application_data import ApplicationData
 from models.distances import CitiesDistances
 
@@ -43,23 +43,33 @@ class BulkAssignPackagesToRouteCommand:      #Use Case 2
             command = input()
 
     def assign_arrival_times(self, prev_city_time, travel_time):
-        if (prev_city_time + travel_time).hours > 14 - prev_city_time.hour:
-            prev_city_time.hour = 6
-            prev_city_time.day += 1
-        arr_time = prev_city_time + travel_time
-        return arr_time
+        new_time = prev_city_time + travel_time
+        if new_time.hour > 20 or (new_time - prev_city_time).days > 0:
+            new_time = new_time.replace(hour=6, minute=0) + timedelta(days=1)
+        return new_time
+
+        # if (prev_city_time + travel_time).hours > 14 - prev_city_time.hour:
+        #     prev_city_time.hour = 6
+        #     prev_city_time.day += 1
+        # arr_time = prev_city_time + travel_time
+        # return arr_time
 
     def assign_truck(self, distance, load):
-
         if (0 <= distance  <= 8000) and ( 0 <= load <= 42000):
+            truck_type = 'Scania'
+            # return self.app_data.add_truck('Scania', truck_id=10001)
 
-            return self.app_data.add_truck('Scania', truck_id=10001)
+        elif (0 <= distance <= 10000) and (0 <= load <= 37000):
+            truck_type = 'Man'
+            # return self.app_data.add_truck('Scania', truck_id=10002)
 
-        if (0 <= distance <= 10000) and (0 <= load <= 37000):
-            return self.app_data.add_truck('Scania', truck_id=10002)
-
-        if (0 <= distance <= 13000) and (0 <= load <= 26000):
-            return self.app_data.add_truck('Scania', truck_id=10003)
+        elif (0 <= distance <= 13000) and (0 <= load <= 26000):
+            truck_type = 'Actros'
+            # return self.app_data.add_truck('Scania', truck_id=10003)
+        else:
+            return 'No truck found'
+        truck = self.app_data.add_truck(truck_type)
+        return truck
 
     #
     # @staticmethod

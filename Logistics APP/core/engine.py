@@ -1,4 +1,4 @@
-from command_factory import CommandFactory
+from core.command_factory import CommandFactory
 from errors.invalid_command import InvalidCommand
 
 
