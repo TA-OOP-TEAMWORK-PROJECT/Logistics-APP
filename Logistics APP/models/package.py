@@ -47,7 +47,7 @@ class Package:
 
     def info(self):
         return (f"Package ID: {self.id}, Start Location: {self._start_location}, "
-                f"End Location: {self._end_location}, Weight: {self._weight}, "
+                f"End Location: {self._end_location}, Weight: {self._weight:.2f}, "
                 f"Customer: {self.customer.name if self.customer else 'Package is not yet assigned'}, Assigned Route: {self.route.route_id if self.route else 'None'}")
 
 
