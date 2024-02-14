@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta
 from generate_id.id_generator import RouteIdGenerator
 from models.distances import CitiesDistances
@@ -19,7 +20,7 @@ class Route:
         self.route = {}     #start_location: self.departure_time, end_location:self.expected_arrival_time
         self.packages = [] #tuple?
         self.distances = CitiesDistances()
-
+        self.save_to_file()
 
     @property
     def load(self):  # не е current, защото се иска за целия път
@@ -141,3 +142,22 @@ class Route:
     #
     #     def set_expected_arrival_time(self, arrival_time):
     #         self.expected_arrival_time = arrival_time
+
+    def save_to_file(self):
+        route_info = {
+            'route_id': self.route_id,
+            'start_location': self.start_location,
+            'end_location': self.end_location,
+            'departure_time': self.departure_time,
+            'expected_arrival_time': self.expected_arrival_time,
+            'assigned_truck': self.assigned_truck.truck_id if self.assigned_truck else None
+        }
+
+        directory_path = 'routes_info'
+        file_path = os.path.join(directory_path, 'routes_info.txt')
+
+        if not os.path.exists(directory_path):
+            os.makedirs(directory_path)
+
+        with open(file_path, 'a') as file:
+            file.write(str(route_info) + '\n')
