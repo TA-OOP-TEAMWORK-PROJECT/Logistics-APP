@@ -1,6 +1,6 @@
 from models.location import Location
 from generate_id.id_generator import PackageIdGenerator
-
+from models.package_status import PackageStatus
 class Package:
 
 
@@ -11,7 +11,7 @@ class Package:
         self._weight = weight
         self.customer = customer   #for customer information
         self.route = None    # classROUTE
-        self.status = None
+        self.status = PackageStatus.NOT_ASSIGNED
         self.daily_storage = []
 
 

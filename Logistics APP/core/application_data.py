@@ -8,6 +8,7 @@ from models.truck import Truck
 from models.actros import Actros
 from models.man import Man
 from models.scania import Scania
+from models.package_status import PackageStatus
 
 class ApplicationData:
     def __init__(self):
@@ -55,12 +56,7 @@ class ApplicationData:
                 return rt
         return None
 
-    # def search_for_route(self, start_location, end_location):
-    #     for route in self._routes:
-    #         if route.start_location == start_location and route.end_location == end_location:
-    #             return route
-    #     return None
-    #
+
 
     def show_package_by_start_end_location(self, start, end): #САмо от тези през деня
         for package in self.daily_packages:
@@ -144,6 +140,17 @@ class ApplicationData:
                 routes_in_progress.append(route)
         return routes_in_progress
 
+    def assign_package_to_route(self, package_id, route_id):
+        package = self.find_package(package_id)
+        route = self.find_route(route_id)
+        if package and route:
+            package.route = route
+            package.status = PackageStatus.ASSIGNED_TO_ROUTE
+            self.route.packages.append(package)
+        else:
+            raise ValueError("Package not found.")
+
+    
 
     # update_route(),show_routes(), show_packages()
     # def add_truck(self, truck_type):
@@ -157,3 +164,11 @@ class ApplicationData:
     #         raise ValueError("Unknown truck type.")
     #     self._trucks.append(truck)
     #     return truck
+
+    # def search_for_route(self, start_location, end_location):
+    #     for route in self._routes:
+    #         if route.start_location == start_location and route.end_location == end_location:
+    #             return route
+    #     return None
+    #
+

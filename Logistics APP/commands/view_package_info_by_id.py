@@ -9,5 +9,8 @@ class ViewPackageInfoByIdCommand:        #Use Case 5
         self.app_data = app_data
 
     def execute(self):
-        package = next((p for p in self.app_data.daily_packages if p.id == self.package_id), None)
-        return package.info() if package else f"No package found with ID {self.package_id}."
+        package = self.app_data.find_package(self.package_id)
+        if package:
+            return package.info()
+        else:
+            return f"No package found with ID {self.package_id}"
