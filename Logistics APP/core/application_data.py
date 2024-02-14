@@ -1,7 +1,6 @@
 ### Class AppData
 ### methods  - search_for_route, assign_free_truck, assign_delivery_package,
 from datetime import timedelta, datetime
-
 from models.package import Package
 from models.route import Route
 from models.customer import Customer
