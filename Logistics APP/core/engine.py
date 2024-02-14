@@ -11,7 +11,7 @@ class Engine:
         while True:
             try:
                 input_line = input()
-                if input_line.lower() == 'end':
+                if input_line.lower() == 'exit':
                     break
 
                 command = self._command_factory.create(input_line)
