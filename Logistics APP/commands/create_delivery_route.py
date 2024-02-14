@@ -16,8 +16,7 @@ class CreateDeliveryRouteCommand:
         start = params[0]
         end = params[1]
         route = Route(start, end)
-        current_route = self.add_locations()
-        route.route = current_route
+        route.route = self.add_locations()
         self._app_data.routes.append(route)
         return f'Route with {route.route_id} was created!'
 
@@ -35,6 +34,7 @@ class CreateDeliveryRouteCommand:
             prev_city = command
             command = input()
 
+        return possible_route
     def assign_arrival_times(self, prev_city_time, travel_time):
         new_time = prev_city_time + travel_time
         if new_time.hour > 20 or (new_time - prev_city_time).days > 0:

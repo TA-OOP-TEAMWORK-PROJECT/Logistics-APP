@@ -104,21 +104,28 @@ class ApplicationData:
         self.daily_packages.append(package)
         return package
 
-    def create_route(self, start_location, end_location, departure_time, arrival_time):
-        route = Route(start_location, end_location, departure_time, arrival_time)
+    def create_route(self, start_location, end_location):
+        route = Route(start_location, end_location)
         self._routes.append(route)
         return route
 
-    # update_route(),show_routes(), show_packages()
-    def add_truck(self, truck_type):
-        if truck_type == "Actros":
-            truck = Actros()
-        elif truck_type == "Man":
-            truck = Man()
-        elif truck_type == "Scania":
+    def assign_truck(self, distance, load):
+        if (0 <= distance <= 8000) and ( 0 <= load <= 42000):
+            truck_type = 'Scania'
             truck = Scania()
+            # return self.app_data.add_truck('Scania', truck_id=10001)
+
+        elif (0 <= distance <= 10000) and (0 <= load <= 37000):
+            truck_type = 'Man'
+            truck = Man()
+            # return self.app_data.add_truck('Scania', truck_id=10002)
+
+        elif (0 <= distance <= 13000) and (0 <= load <= 26000):
+            truck_type = 'Actros'
+            truck = Actros()
+            # return self.app_data.add_truck('Scania', truck_id=10003)
         else:
-            raise ValueError("Unknown truck type.")
+            return ValueError("Unknown truck type.")
         self._trucks.append(truck)
         return truck
 
@@ -136,3 +143,17 @@ class ApplicationData:
             if route.is_in_progress():
                 routes_in_progress.append(route)
         return routes_in_progress
+
+
+    # update_route(),show_routes(), show_packages()
+    # def add_truck(self, truck_type):
+    #     if truck_type == "Actros":
+    #         truck = Actros()
+    #     elif truck_type == "Man":
+    #         truck = Man()
+    #     elif truck_type == "Scania":
+    #         truck = Scania()
+    #     else:
+    #         raise ValueError("Unknown truck type.")
+    #     self._trucks.append(truck)
+    #     return truck
