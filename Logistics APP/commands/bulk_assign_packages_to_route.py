@@ -1,13 +1,11 @@
-from datetime import datetime, date, timedelta
 from core.application_data import ApplicationData
 from models.distances import CitiesDistances
-from create_delivery_route import CreateDeliveryRouteCommand
 
 
 class BulkAssignPackagesToRouteCommand:
     def __init__(self, params, app_data: ApplicationData):
         self.route_id = params[0]
-        self.package_ids = params[1:] #не могат да да int  list(map(int, params[1:]))
+        self.package_ids = params[1:]
         self.app_data = app_data
         self.distances = CitiesDistances()
 

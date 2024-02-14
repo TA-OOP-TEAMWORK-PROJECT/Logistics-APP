@@ -10,7 +10,7 @@ from commands.validation_helpers import parse_departure_time
 # from core.application_data import ApplicationData
 
 class Route:
-    def __init__(self, start_location, end_location, customer):
+    def __init__(self, start_location, end_location):
         route_id = RouteIdGenerator.generate_next_route_id()
         self.route_id = route_id
         self.start_location = start_location
