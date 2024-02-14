@@ -2,12 +2,11 @@ from datetime import timedelta
 from commands.validation_helpers import validate_params_count
 from core.application_data import ApplicationData
 from models.distances import CitiesDistances
-from models.route import Route
-
+from validation_helpers import parse_departure_time
 
 class CreateDeliveryRouteCommand:
     def __init__(self, params:list [str], app_data:ApplicationData):
-        validate_params_count(params , 4)
+        validate_params_count(params, 4)
         self.params = params
         self._app_data = app_data
         self.distances = CitiesDistances()
@@ -15,14 +14,13 @@ class CreateDeliveryRouteCommand:
     def execute(self, params):
         start = params[0]
         end = params[1]
-        route = Route(start, end)
+        route = self._app_data.create_route(start, end)
         route.route = self.add_locations()
-        self._app_data.routes.append(route)
         return f'Route with {route.route_id} was created!'
 
     def add_locations(self):
         first_start = input()
-        possible_route = {first_start: self._app_data.add_departure_time()}
+        possible_route = {first_start: parse_departure_time()}
         prev_city = first_start
         command = input()
 
@@ -35,7 +33,9 @@ class CreateDeliveryRouteCommand:
             command = input()
 
         return possible_route
-    def assign_arrival_times(self, prev_city_time, travel_time):
+
+    @staticmethod
+    def assign_arrival_times(prev_city_time, travel_time):
         new_time = prev_city_time + travel_time
         if new_time.hour > 20 or (new_time - prev_city_time).days > 0:
             new_time = new_time.replace(hour=6, minute=0) + timedelta(days=1)
