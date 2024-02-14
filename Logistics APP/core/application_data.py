@@ -53,9 +53,6 @@ class ApplicationData:
                 return rt
         return None
 
-    def show_package_by_start_end_location(self, start, end):
-
-
     def show_package_by_start_end_location(self, start, end): #САмо от тези през деня
         for package in self.daily_packages:
             if package.start_location == start and package.end_location == end:
