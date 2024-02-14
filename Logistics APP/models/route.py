@@ -5,16 +5,17 @@ from models.event_log import EventLog
 from models.actros import Actros
 from models.man import Man
 from models.scania import Scania
+from commands.validation_helpers import parse_departure_time
 # from core.application_data import ApplicationData
 
 class Route:
-    def __init__(self, start_location, end_location):
+    def __init__(self, start_location, end_location, customer):
         route_id = RouteIdGenerator.generate_next_route_id()
         self.route_id = route_id
         self.start_location = start_location
         self.end_location = end_location
-        self.departure_time = departure_time
-        self.expected_arrival_time = expected_arrival_time
+        self.departure_time = parse_departure_time()
+        self.expected_arrival_time = None
         self.assigned_truck = None
         self.route = {}     #start_location: self.departure_time, end_location:self.expected_arrival_time
         self.packages = [] #tuple?
@@ -40,16 +41,6 @@ class Route:
         if package.start_location != self.start_location or package.end_location != self.end_location:
             raise ValueError("Package start or end location does not match the route.")
         self.packages.append(package)
-
-    @property
-    def load(self):  # не е current, защото се иска за целия път
-        return sum(package.weight for package in self.packages)
-
-    def in_between_load(self):  # от локация до лолация!
-        pass
-
-    def premahwane_na_towar_pti_end_lokaciq(self):
-        pass
 
     def calculate_route_distance(self):
         locations_sequence = [self.start_location] + [stop['location'] for stop in self.stops] + [self.end_location]
@@ -85,6 +76,15 @@ class Route:
             raise ValueError(f"Truck {truck.truck_id} is not available or not compatible with the route requirements.")
 
 
+    @staticmethod
+    def add_departure_time():
+        # Създаване на обект от тип datetime, представляващ текущата дата и час
+        current_datetime = datetime.now()
+        # Добавяне на един ден към текущата дата, за да получите утрешната дата
+        tomorrow_date = current_datetime + timedelta(days=1)
+        # Създаване на утрешния ден с час 06:00
+        date_time_tommorow = datetime(tomorrow_date.month, tomorrow_date.day, 6, 0)
+        return date_time_tommorow
 
     # def calculate_eta(self):            #ETA - estimated time of arrival
     #     average_speed_kmh = 87
