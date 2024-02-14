@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 from models.package import Package
 from models.route import Route
 from models.customer import Customer
@@ -128,10 +128,23 @@ class ApplicationData:
         if package and route:
             package.route = route
             package.status = PackageStatus.ASSIGNED_TO_ROUTE
-            self.route.packages.append(package)
+            route.packages.append(package)
         else:
             raise ValueError("Package not found.")
 
+    def package_is_delivered(self, package_id):
+        package = self.find_package(package_id)
+        if package:
+            package.status = PackageStatus.DELIVERED
+        else:
+            raise ValueError("There is no such package.")
+
+    def update_packages_status_in_transit(self):
+        current_time = datetime.now()
+        for package in self.daily_packages:
+            if package.route and package.status == PackageStatus.ASSIGNED_TO_ROUTE:
+                if package.route.expected_arrival_time <= current_time:
+                    package.status = PackageStatus.DELIVERED
 
 
     # update_route(),show_routes(), show_packages()
