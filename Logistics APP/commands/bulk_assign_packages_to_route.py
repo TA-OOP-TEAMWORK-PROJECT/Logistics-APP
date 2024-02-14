@@ -1,8 +1,7 @@
 from datetime import datetime, date, timedelta
-
-
 from core.application_data import ApplicationData
 from models.distances import CitiesDistances
+from create_delivery_route import CreateDeliveryRouteCommand
 
 
 #create route (start_loc, end_loc, other, locations, start_time, estim_arr_time)
@@ -15,7 +14,7 @@ class BulkAssignPackagesToRouteCommand:      #Use Case 2
         self.distances = CitiesDistances()
 
     def execute(self):
-        route = self.add_locations()
+        route = self.app_data.find_route(self.route_id)
         packages = self.checker_package_id()
         route_distance = self.distances.calculate_total_route_distance(route)
         package_load = sum([p.weight for p in packages])
@@ -28,34 +27,8 @@ class BulkAssignPackagesToRouteCommand:      #Use Case 2
             packages.append(self.app_data.find_package(i))
         return packages
 
-    def add_locations(self): #С какво име влизат локациите?
-        first_start = input()
-        possible_route = {first_start: self.app_data.add_departure_time()}
-        prev_city = first_start
-        command = input()
-
-        while not command == 'end':
-            distance = self.distances.get_distance(prev_city, command)
-            travel_time = self.app_data.calculate_eta(distance)
-            next_arr_time = self.assign_arrival_times(possible_route[prev_city], travel_time) #Времето на което е бил преди това, времето за което трябва да стигне до дестинацията
-            possible_route[command] = next_arr_time
-            prev_city = command
-            command = input()
-
-    def assign_arrival_times(self, prev_city_time, travel_time):
-        new_time = prev_city_time + travel_time
-        if new_time.hour > 20 or (new_time - prev_city_time).days > 0:
-            new_time = new_time.replace(hour=6, minute=0) + timedelta(days=1)
-        return new_time
-
-        # if (prev_city_time + travel_time).hours > 14 - prev_city_time.hour:
-        #     prev_city_time.hour = 6
-        #     prev_city_time.day += 1
-        # arr_time = prev_city_time + travel_time
-        # return arr_time
-
     def assign_truck(self, distance, load):
-        if (0 <= distance  <= 8000) and ( 0 <= load <= 42000):
+        if (0 <= distance <= 8000) and ( 0 <= load <= 42000):
             truck_type = 'Scania'
             # return self.app_data.add_truck('Scania', truck_id=10001)
 

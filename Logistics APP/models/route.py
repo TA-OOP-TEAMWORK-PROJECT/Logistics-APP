@@ -8,7 +8,7 @@ from models.scania import Scania
 # from core.application_data import ApplicationData
 
 class Route:
-    def __init__(self, start_location, end_location, departure_time, expected_arrival_time):
+    def __init__(self, start_location, end_location):
         route_id = RouteIdGenerator.generate_next_route_id()
         self.route_id = route_id
         self.start_location = start_location
@@ -16,7 +16,7 @@ class Route:
         self.departure_time = departure_time
         self.expected_arrival_time = expected_arrival_time
         self.assigned_truck = None
-        # self.route = {start_location: self.departure_time, end_location:self.expected_arrival_time}
+        self.route = {}     #start_location: self.departure_time, end_location:self.expected_arrival_time
         self.packages = [] #tuple?
         self.distances = CitiesDistances()
 
@@ -25,8 +25,8 @@ class Route:
     def load(self):  # не е current, защото се иска за целия път
         return sum(package.weight for package in self.packages)
 
-    def calculate_location_distance(self, first_location, second_location):
-        return self.distance.get_distance(first_location, second_location)
+    # def calculate_location_distance(self, first_location, second_location):
+    #     return self.distance.get_distance(first_location, second_location)
 
     # def add_intermediate_stop(self, stop_location, expected_arrival_time):
     #     self.intermediate_stops.append({'location': stop_location, 'expected arrival time': expected_arrival_time})
