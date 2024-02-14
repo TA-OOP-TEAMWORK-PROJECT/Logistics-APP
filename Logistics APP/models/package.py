@@ -1,3 +1,4 @@
+import os
 from models.location import Location
 from generate_id.id_generator import PackageIdGenerator
 from models.package_status import PackageStatus
@@ -13,6 +14,7 @@ class Package:
         self.route = None    # classROUTE
         self.status = PackageStatus.NOT_ASSIGNED
         self.daily_storage = []
+        self.save_to_file()
 
 
     @property
@@ -54,3 +56,22 @@ class Package:
 
     def __str__(self):
         pass
+
+    def save_to_file(self):
+        package_info = {
+            'id': self.id,
+            'start_location': self.start_location,
+            'end_location': self.end_location,
+            'weight': self.weight,
+            'customer': self.customer.name if self.customer else None,
+            'route': self.route.route_id if self.route else None
+        }
+
+        directory_path = 'packages_info'
+        file_path = os.path.join(directory_path, 'packages_info.txt')
+
+        if not os.path.exists(directory_path):
+            os.makedirs(directory_path)
+
+        with open(file_path, 'a') as file:
+            file.write(str(package_info) + '\n')
