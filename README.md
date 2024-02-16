@@ -1,99 +1,173 @@
-**Logistics App !**
+# Logistics App
 
-Project Description 
+## Description
 
-Design and implement a **Logistics** console application. 
+The Logistics App is a console application created to help a large Australian corporation entering the freight business coordinate package delivery between hubs in significant Australian cities. Workers can use it to keep track of package information, designate or find appropriate delivery routes, and keep an eye on the condition of delivery vehicles, packages, and routes.
 
-The application will be used by employees of a large Australian company aiming to expand its activities to the freight industry. The app will be used to manage the delivery of packages between hubs in major Australian cities. An employee of the company must be able to record the details of a delivery package, create or search for suitable delivery routes, and inspect the current state of delivery packages, transport vehicles and delivery routes.  
+## Installation
 
-Functional Requirements 
+1. Clone the repository to your local machine.
+2. Ensure you have Python 3.x installed.
+3. Navigate to the project directory.
+4. You're ready to use the Logistics App!
 
-The application **must** support the following operations: 
+## Usage
 
-1. Creating a delivery package – unique id, start location, end location and weight in kg, and contact information for the customer. 
-1. Creating a delivery route – should have a unique id, and a list of locations (at least two). 
-   1. The first location is the starting location – it has a departure time. 
-   1. The other locations have expected arrival time. 
-1. Search for a route based on package’s start and end locations. 
-1. Updating a delivery route – assign a free truck to it.  
-1. Updating a delivery route – assign a delivery package. 
-1. View a information about routes, packages and trucks. 
+1. Run the application using Python.
+2. Follow the prompts to perform various operations such as creating customers, delivery packages, routes, updating routes, and viewing information about routes, packages, customers and trucks.
+3. Save the application state to the file system as needed.
 
-The application **should** support the following operations: 
+## Usage Commands
 
-1\.  Save the application state to the file system ![]
+The Logistics App supports the following commands for managing package delivery:
 
-The company owns the following transport vehicles: 
+### Create Customer
+
+Command: `createcustomer`
+
+Description: Creates a new customer record in the system.
+
+- `<customer_name>`: The name of the customer. (string)
+
+- `<phone_number>`: The phone number of the customer. (string)
+
+Usage: `createcustomer <customer name> <phone_number>`
+
+Example: createcustomer 'Hugh Jackman' 061412345678
+
+### Create Package
+
+### Command: `createpackage`
+
+Description: Creates a new delivery package in the system.
+
+Usage: `createpackage <start_location> <end_location> <weight> <customer_phone_number>`
+
+- `<start_location>`: The starting location of the delivery package. (string)
+
+- `<end_location>`: The ending location of the delivery package. (string)
+
+- `<weight>`: The weight of the delivery package in kilograms (kg). (float or integer)
+
+- `<customer_phone_number>`: The phone number of the customer associated with the delivery package. (string)
+
+Example: createpackage Sydney Melbourne 45 061412345678
+
+### Command: `assignpackagetoroute`
+
+Description: Assigns a package to a specific delivery route.
+
+Usage: `assignpackagetoroute <package_id> <route_id>`
+
+- `<package_id>`: The unique identifier of the package to be assigned to the delivery route. This should be in the format `PkgXXXXX`, where XXXXX represents the unique ID of the package. (string)
+
+- `<route_id>`: The unique identifier of the delivery route to which the package will be assigned. This should be in the format `RouteXXXXX`, where XXXXX represents the unique ID of the route. (string)
+
+Example: assignpackagetoroute Pkg00001 Route00001
+
+### Command: `bulkassignpackagestoroute`
+
+Description: Bulk assigns multiple packages to a specified delivery route.
+
+Usage: `bulkassignpackagestoroute <route_id> <package_id_1> [<package_id_2> ... <package_id_n>]`
+
+- `<route_id>`: The unique identifier of the delivery route to which the packages will be bulk assigned. This should be in the format `RouteXXXXX`, where XXXXX represents the unique ID of the route. (string)
+
+- `<package_id_1> [<package_id_2> ... <package_id_n>]`: The unique identifiers of the packages to be bulk assigned to the specified delivery route. These should be in the format `PkgXXXXX`, where XXXXX represents the unique ID of each package. Users can specify multiple package IDs separated by spaces to bulk assign multiple packages at once. (string)
+
+Example: bulkassignpackagestoroute Route00001 Pkg00001 Pkg00002 Pkg00003
+
+### Create Delivery Route
+
+### Command: `createdeliveryroute`
+
+Description: Creates a new delivery route in the system.
+
+Usage: `createdeliveryroute <start_location> <end_location> [<additional_destinations>]`
+
+- `<start_location>`: The starting location of the delivery route. (string)
+
+- `<end_location>`: The ending location of the delivery route. (string)
+
+- `[<additional_destinations>]`: Optional additional destinations for the route. Users can input multiple destinations after the start and end locations. After entering all additional destinations, type 'end' to finalize the route creation. Each additional destination should be provided as a string. (string)
+
+Example: createdeliveryroute "Sydney" "Melbourne" "Adelaide" "Brisbane" end
+
+
+### Command: `viewpackage`
+
+Description: Displays information about a specific package in the system.
+
+Usage: `viewpackage <start_location> <end_location>`
+
+- `<start_location>`: The starting location of the package to be viewed. (string)
+
+- `<end_location>`: The ending location of the package to be viewed. (string)
+
+Example: viewpackage "Sydney" "Melbourne"
+
+
+### Command: `searchroute`
+
+Description: Searches for a delivery route based on package start and end locations.
+
+Usage: `searchroute <start_location> <end_location>`
+
+- `<start_location>`: The starting location of the package. (string)
+
+- `<end_location>`: The ending location of the package. (string)
+
+Example: searchroute "Sydney" "Melbourne"
+
+
+### Command: `viewpackageinfobyid`
+
+Description: Displays detailed information about a package based on its ID.
+
+Usage: `viewpackageinfobyid <package_id>`
+
+- `<package_id>`: The unique identifier of the package for which detailed information is to be displayed. These should be in the format `PkgXXXXX`, where XXXXX represents the unique ID of each package. (string)
+
+Example: viewpackageinfobyid Pkg00001
+
+
+### Command: `viewroute`
+
+Description: Displays information about a specific delivery route in the system.
+
+Usage: `viewroute <start_location> <end_location>`
+
+- `<start_location>`: The starting location of the delivery route to be viewed. (string)
+
+- `<end_location>`: The ending location of the delivery route to be viewed.  (string)
+
+Example: viewroute "Sydney" "Melbourne"
+
+
+### Command: `viewrouteinprogress`
+
+Description: Displays information about delivery routes that are currently in progress.
+
+Usage: `viewrouteinprogress`
 
 
 
-|**Vehicle ids** |**Name** |**Capacity (kg)** |**Max range (km)** |**Number of vehicles** |
-| -              | -       | -                | -                 | -                     |
-|1001-1010       |Scania   |42000             |8000               |10                     |
-|1011-1025       |Man      |37000             |10000              |15                     |
-|1026-1040       |Actros   |26000             |13000              |15                     |
+### Command: `viewunassignedpackages`
+
+Description: Displays a list of packages that have not yet been assigned to a delivery route.
+
+Usage: `viewunassignedpackages`
+
+
+## License
+
+All rights reserved
+
+## Credits
+
+- Snezhana Petrova
+- Simeon Hristov
+- Nikolay Stankov
 
 
 
-Use the following distances in **km** !
-
-|        |**SYD** |**MEL** |**ADL** |**ASP** |**BRI** |**DAR** |**PER** |
-|--------| -      | -      | -      | -      | -      | -      | -      |
-|**SYD** |   -    |877     |1376    |2762    |909     |3935    |4016    |
-|**MEL** |877     |  -     |725     |2255    |1765    |3752    |3509    |
-|**ADL** |1376    |725     |   -    |1530    |1927    |3027    |2785    |
-|**ASP** |2762    |2255    |1530    |   -    |2993    |1497    |2481    |
-|**BRI** |909     |1765    |1927    |2993    |   -    |3426    |4311    |
-|**DAR** |3935    |3752    |3027    |1497    |3426    |   -    |4025    |
-|**PER** |4016    |3509    |2785    |2481    |4311    |4025    |   -    |
-Use cases 
-
-Use case #1 
-
-A customer visits the company office in Sydney on Oct 8th. They bring a package that needs to be delivered to Melbourne. An employee of the company records the customer’s contact info, weighs the package at 45kg and then checks for a suitable delivery route. The system reports that there are two routes: 
-
-- Brisbane (Oct 10th 06:00h) → Sydney (Oct 10th 20:00h) → Melbourne (Oct 11th 18:00h) 
-- Sydney (Oct 12th 06:00h) → Melbourne (Oct 12th 20:00h) → Adelaide (Oct 13th 15:00h) 
-
-Both routes' trucks have free capacity, and the employee suggests the first one, as the package will arrive one day earlier. The customer agrees and the employee uses the system to add the delivery package to the first route and to update the package’s expected arrival time to Oct 11th 18:00h. 
-
-Use case #2 
-
-Many packages with total weight of 23000kg have gathered in the hub in Alice Springs and an employee of the company uses the system to create a route that leaves on Sep 12th 06:00h with the following stops: 
-
-- Alice Springs → Adelaide → Melbourne → Sydney → Brisbane 
-
-The system determines the route distance to 4041km and calculates estimated arrival times for each of the locations based on a predefined average speed of 87km/h. The employee then finds a free truck that meets the required range and capacity and proceeds to bulk assign the packages to the newly created route by using the route id and the packages’ ids. 
-
-Use case #3 
-
-A manager at the company uses the system to find information about all delivery routes in progress. The system responds with information that contains each route’s stops, delivery weight, and the expected current stop based on the time of the day. 
-
-Use case #4 
-
-A supervising employee uses the system to view information about each package that is not yet assigned to a delivery route. The system responds with a list of packages containing their IDs and locations 
-
-Use case #5 
-
-A customer contacts the office to request information about their package. The customer provides the id that they received when the package was created, and an employee enters the package id in the system. It responds with detailed information which is then emailed to the customer. 
-
-Technical Requirements 
-
-- Follow the **OOP** programming principles: 
-  - Encapsulate your objects. 
-  - Apply information hiding where necessary. 
-  - Decide between inheritance and composition properly. 
-  - Use polymorphism properly. 
-- Follow guidelines for writing **readable code**: 
-  - Adequate naming of variables, functions, classes, methods, and attributes. 
-  - Well-formatted and consistent code. 
-  - Well-structured and readable logic. 
-- Implement proper user input **validation** and display meaningful user messages. 
-- Implement proper **error** **handling**. 
-- Prefer using list comprehension where readability will be improved 
-- **Cover the core functionality with unit tests.** 
-- Use **Git** to keep your source code and for team collaboration. 
-
-Teamwork Guidelines 
-
-Please see the Teamwork Guidelines document. 
