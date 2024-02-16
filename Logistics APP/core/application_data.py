@@ -6,6 +6,7 @@ from models.actros import Actros
 from models.man import Man
 from models.scania import Scania
 from models.package_status import PackageStatus
+from math import ceil
 
 
 class ApplicationData:
@@ -71,10 +72,9 @@ class ApplicationData:
     def calculate_eta(distance):
         average_speed_kmh = 87
         travel_time = distance / average_speed_kmh
-        if travel_time > 14:
-            days = travel_time//14
-            hours = travel_time - (days * 14)
-            travel_time = timedelta(days=days,hours=hours)
+        days = travel_time//14
+        hours = travel_time - (days * 14)
+        travel_time = timedelta(days=days, hours=hours)
         return travel_time
 
     @staticmethod
@@ -89,7 +89,6 @@ class ApplicationData:
 
     def create_route(self, start_location, end_location):
         route = Route(start_location, end_location)
-        self._routes.append(route)
         return route
 
     def assign_truck(self, distance, load):

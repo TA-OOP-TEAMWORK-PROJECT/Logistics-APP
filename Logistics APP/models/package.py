@@ -62,7 +62,7 @@ class Package:
             'end_location': self.end_location,
             'weight': self.weight,
             'customer': self.customer.name if self.customer else None,
-            'route': self.route.route_id if self.route else None
+            'route': self.route.route_id if self.route else None         # nqma route
         }
 
         directory_path = 'packages_info'

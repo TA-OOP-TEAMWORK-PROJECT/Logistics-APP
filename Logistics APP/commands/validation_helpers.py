@@ -21,8 +21,13 @@ def parse_custom_datetime(date_str):
 
 def parse_departure_time():
     tomorrow_date = datetime.now() + timedelta(days=1)
-    tomorrow_date = datetime(year= tomorrow_date.year, month=tomorrow_date.month, day=tomorrow_date.day, hour=6, minute=0)
-    a = tomorrow_date.strptime(str(tomorrow_date), "%b %d %H:%M")
-    a = 7
+    tomorrow_date = datetime(year=tomorrow_date.year, month=tomorrow_date.month, day=tomorrow_date.day, hour=6, minute=0)
     return tomorrow_date
+
+# def parse_departure_time():
+#     tomorrow_date = datetime.now() + timedelta(days=1)
+#     tomorrow_date = datetime(year= tomorrow_date.year, month=tomorrow_date.month, day=tomorrow_date.day, hour=6, minute=0)
+#     formatted_datetime = tomorrow_date.strftime("%b %d %H:%M")
+#     return formatted_datetime
+
 
