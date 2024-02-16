@@ -15,10 +15,11 @@ class CreateDeliveryRouteCommand:
     def execute(self):
         start = self.params[0]
         end = self.params[1]
-        route = self._app_data.create_route(start, end)
-        route.route = self.add_locations()
-        self._app_data._routes.append(route)
-        return f'Route with {route.route_id} was created!'
+        new_route = self._app_data.create_route(start, end)
+        new_route.route = self.add_locations()
+        self._app_data._routes.append(new_route)
+        return f'Route with {new_route.route_id} was created!'
+
 
     def add_locations(self):
         first_start = input()
