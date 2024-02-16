@@ -1,10 +1,11 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 from models.package import Package
 from models.route import Route
 from models.customer import Customer
 from models.actros import Actros
 from models.man import Man
 from models.scania import Scania
+from models.package_status import PackageStatus
 
 class ApplicationData:
     def __init__(self):
@@ -52,7 +53,7 @@ class ApplicationData:
                 return rt
         return None
 
-    def show_package_by_start_end_location(self, start, end):
+    def show_package_by_start_end_location(self, start, end): #САмо от тези през деня
         for package in self.daily_packages:
             if package.start_location == start and package.end_location == end:
                 return package
@@ -120,6 +121,30 @@ class ApplicationData:
             if route.is_in_progress():
                 routes_in_progress.append(route)
         return routes_in_progress
+
+    def assign_package_to_route(self, package_id, route_id):
+        package = self.find_package(package_id)
+        route = self.find_route(route_id)
+        if package and route:
+            package.route = route
+            package.status = PackageStatus.ASSIGNED_TO_ROUTE
+            route.packages.append(package)
+        else:
+            raise ValueError("Package not found.")
+
+    def package_is_delivered(self, package_id):
+        package = self.find_package(package_id)
+        if package:
+            package.status = PackageStatus.DELIVERED
+        else:
+            raise ValueError("There is no such package.")
+
+    def update_packages_status_in_transit(self):
+        current_time = datetime.now()
+        for package in self.daily_packages:
+            if package.route and package.status == PackageStatus.ASSIGNED_TO_ROUTE:
+                if package.route.expected_arrival_time <= current_time:
+                    package.status = PackageStatus.DELIVERED
 
 
     # update_route(),show_routes(), show_packages()

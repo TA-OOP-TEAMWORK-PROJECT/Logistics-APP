@@ -1,3 +1,4 @@
+import os
 from models.truck_status import TruckStatus
 
 
@@ -10,6 +11,7 @@ class Truck:
         self.status = TruckStatus.FREE
         self.current_route = None
         self.current_load_kg = 0
+        self.save_to_file()
 
     @property
     def truck_id(self):
@@ -53,3 +55,23 @@ class Truck:
         self.status = TruckStatus.FREE
         self.current_route = None
         self.current_load_kg = 0
+
+    def save_to_file(self):
+        truck_info = {
+            'truck_id': self.truck_id,
+            'truck_brand': self.truck_brand,
+            'capacity_kg': self.capacity_kg,
+            'max_range_km': self.max_range_km,
+            'status': self.status,
+            'current_route': self.current_route,
+            'current_load_kg': self.current_load_kg
+        }
+
+        directory_path = 'trucks_info'
+        file_path = os.path.join(directory_path, 'trucks_info.txt')
+
+        if not os.path.exists(directory_path):
+            os.makedirs(directory_path)
+
+        with open(file_path, 'a') as file:
+            file.write(str(truck_info) + '\n')
