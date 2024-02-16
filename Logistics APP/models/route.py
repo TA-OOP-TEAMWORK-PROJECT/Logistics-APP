@@ -76,16 +76,16 @@ class Route:
                 EventLog(f"Truck {truck.truck_id} is not available or not compatible with the route requirements."))
             raise ValueError(f"Truck {truck.truck_id} is not available or not compatible with the route requirements.")
 
-
-    @staticmethod
-    def add_departure_time():
-        # Създаване на обект от тип datetime, представляващ текущата дата и час
-        current_datetime = datetime.now()
-        # Добавяне на един ден към текущата дата, за да получите утрешната дата
-        tomorrow_date = current_datetime + timedelta(days=1)
-        # Създаване на утрешния ден с час 06:00
-        date_time_tommorow = datetime(tomorrow_date.month, tomorrow_date.day, 6, 0)
-        return date_time_tommorow
+    #
+    # @staticmethod
+    # def add_departure_time():
+    #     # Създаване на обект от тип datetime, представляващ текущата дата и час
+    #     current_datetime = datetime.now()
+    #     # Добавяне на един ден към текущата дата, за да получите утрешната дата
+    #     tomorrow_date = current_datetime + timedelta(days=1)
+    #     # Създаване на утрешния ден с час 06:00
+    #     date_time_tommorow = datetime(tomorrow_date.month, tomorrow_date.day, 6, 0)
+    #     return date_time_tommorow
 
     # def calculate_eta(self):            #ETA - estimated time of arrival
     #     average_speed_kmh = 87

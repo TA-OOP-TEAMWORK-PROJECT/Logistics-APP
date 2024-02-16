@@ -1,5 +1,4 @@
 import os
-from models.location import Location
 from generate_id.id_generator import PackageIdGenerator
 from models.package_status import PackageStatus
 class Package:
@@ -7,13 +6,12 @@ class Package:
 
     def __init__(self, start_location, end_location, weight, customer):
         self.id = PackageIdGenerator.generate_next_package_id()
-        self._start_location = start_location
-        self._end_location = end_location
+        self.start_location = start_location
+        self.end_location = end_location
         self._weight = weight
         self.customer = customer   #for customer information
         self.route = None    # classROUTE
         self.status = PackageStatus.NOT_ASSIGNED
-        self.daily_storage = []
         self.save_to_file()
 
 
@@ -23,7 +21,7 @@ class Package:
 
     @start_location.setter
     def start_location(self, value):
-        if value not in Location.possible_locations:
+        if value not in ['Sydney', 'Melbourne', 'Adelaide', 'AliceSprings', 'Brisbane', 'Darwin', 'Perth']:
             raise ValueError('Invalid location!')
         self._start_location = value
 
@@ -33,7 +31,7 @@ class Package:
 
     @end_location.setter
     def end_location(self, value):
-        if value not in Location.possible_locations:
+        if value not in ['Sydney', 'Melbourne', 'Adelaide', 'AliceSprings', 'Brisbane', 'Darwin', 'Perth']:
             raise ValueError('Invalid location!')
         self._end_location = value
 

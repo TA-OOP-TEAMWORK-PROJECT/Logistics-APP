@@ -7,6 +7,7 @@ from models.man import Man
 from models.scania import Scania
 from models.package_status import PackageStatus
 
+
 class ApplicationData:
     def __init__(self):
         self.daily_packages = []
@@ -31,15 +32,18 @@ class ApplicationData:
         return self._trucks
 
 
-    def create_customer(self, name, phone_number): # validation_helperss?
+    def create_customer(self, name, phone_number):
         customer = Customer(name, phone_number)
         self._customers.append(customer)
 
-    def find_customer(self, number):
-        for customer in self._customers:
-            if customer.phone_number == number:
-                return customer
-        return None
+    def find_customer(self, number_id):
+        try:
+            phone_number = int(number_id)
+            for customer in self._customers:
+                if customer.phone_number == number_id:
+                    return customer
+        except:
+            raise ValueError('Invalid number!')
 
     def find_package(self, package_id):
         for pkg in self.daily_packages:
@@ -78,9 +82,7 @@ class ApplicationData:
         time = current_time + travel_time
 
     def create_package(self, start_location, end_location, weight, customer):
-        
-        if not customer:
-            raise ValueError("Customer not found.")
+
         package = Package(start_location, end_location, weight, customer)
         self.daily_packages.append(package)
         return package

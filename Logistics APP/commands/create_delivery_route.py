@@ -2,19 +2,19 @@ from datetime import timedelta
 from commands.validation_helpers import validate_params_count
 from core.application_data import ApplicationData
 from models.distances import CitiesDistances
-from validation_helpers import parse_departure_time
+from commands.validation_helpers import parse_departure_time
 
 
 class CreateDeliveryRouteCommand:
     def __init__(self, params:list [str], app_data:ApplicationData):
-        validate_params_count(params, 4)
+        validate_params_count(params, 2)
         self.params = params
         self._app_data = app_data
         self.distances = CitiesDistances()
 
-    def execute(self, params):
-        start = params[0]
-        end = params[1]
+    def execute(self):
+        start = self.params[0]
+        end = self.params[1]
         route = self._app_data.create_route(start, end)
         route.route = self.add_locations()
         return f'Route with {route.route_id} was created!'
