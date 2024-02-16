@@ -20,12 +20,13 @@ class Route:
         self.assigned_truck = None
         self.route = {}     #start_location: self.departure_time, end_location:self.expected_arrival_time
         self.packages = [] #tuple?
-        self.distances = CitiesDistances()
+
         self.save_to_file()
 
     @property
-    def load(self):  # не е current, защото се иска за целия път
+    def load(self):
         return sum(package.weight for package in self.packages)
+
 
     # def calculate_location_distance(self, first_location, second_location):
     #     return self.distance.get_distance(first_location, second_location)

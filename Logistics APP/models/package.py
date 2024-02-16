@@ -1,8 +1,9 @@
 import os
 from generate_id.id_generator import PackageIdGenerator
 from models.package_status import PackageStatus
-class Package:
 
+
+class Package:
 
     def __init__(self, start_location, end_location, weight, customer):
         self.id = PackageIdGenerator.generate_next_package_id()
@@ -13,7 +14,6 @@ class Package:
         self.route = None    # classROUTE
         self.status = PackageStatus.NOT_ASSIGNED
         self.save_to_file()
-
 
     @property
     def start_location(self):
@@ -49,11 +49,6 @@ class Package:
         route_id_info = f", Assigned Route: {self.route.route_id}" if self.route else ""
         return (f"Package ID: {self.id}, Status: {self.status.value}, Start Location: {self.start_location}, "
                 f"End Location: {self.end_location}, Weight: {self.weight}kg{route_id_info}")
-
-
-
-    def __str__(self):
-        pass
 
     def save_to_file(self):
         package_info = {

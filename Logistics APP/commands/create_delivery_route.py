@@ -17,7 +17,7 @@ class CreateDeliveryRouteCommand:
         end = self.params[1]
         route = self._app_data.create_route(start, end)
         route.route = self.add_locations()
-        self._app_data.routes.append(route)
+        self._app_data._routes.append(route)
         return f'Route with {route.route_id} was created!'
 
     def add_locations(self):

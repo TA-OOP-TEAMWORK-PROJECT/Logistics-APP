@@ -16,10 +16,13 @@ class CitiesDistances:
 
 
     def calculate_total_route_distance(self, locations):
+        locations_arr = list(locations.keys())
+        first_location = locations_arr[0]
         ttl_distance = 0
-        for i in range(len(locations) - 1): # ще гръмне
-            if i + 1 == len(locations):
-                break
-            ttl_distance += self.get_distance(locations[i], locations[i + 1])
+
+        for i in range(1, len(locations_arr)):
+            next_location = locations_arr[i]
+            ttl_distance += self.get_distance(first_location, next_location)
+            first_location = locations_arr[i]
 
         return ttl_distance
