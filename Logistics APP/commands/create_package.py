@@ -11,10 +11,10 @@ class CreatePackageCommand:
         self._app_data = app_data
 
     def execute(self):
-        start_location, end_location, weight, customer = self._params
+        start_location, end_location, weight, customer_id = self._params
         weight = try_parse_float(weight)
         customer = self._app_data.find_customer(self._params[3])
         package = self._app_data.create_package(start_location, end_location, float(weight), customer)
-        customer.packages.append(package)
+        customer.packages.append(package)   #трябва да се маха от някъде също
 
         return f'Package with {package.id} was created!'

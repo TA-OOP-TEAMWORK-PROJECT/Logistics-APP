@@ -3,8 +3,7 @@ class Customer:
 
     def __init__(self, name, phone_number):
         self._name = name
-        self._phone_number = None
-        self.phone_number = phone_number
+        self._phone_number = phone_number
         self.packages = []
 
     @property
@@ -21,11 +20,14 @@ class Customer:
     def phone_number(self):
         return self._phone_number
 
-    @phone_number.setter
-    def phone_number(self, value):
-        if 0 >= len(value) > 14 or not value.isdigit():
-            raise ValueError('Phone number is invalid')
-        self._phone_number = value
+    # @phone_number.setter
+    # def phone_number(self, value):
+    #     try:
+    #         number_value = int(value)
+    #         self._phone_number = number_value
+    #     except ValueError:
+    #         raise ValueError('Phone number is invalid')
+
 
     def add_package(self):
         pass

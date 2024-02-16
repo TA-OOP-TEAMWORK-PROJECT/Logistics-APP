@@ -11,17 +11,28 @@ class BulkAssignPackagesToRouteCommand:
 
     def execute(self):
         route = self.app_data.find_route(self.route_id)
-        packages = self.checker_package_id()
-        route_distance = self.distances.calculate_total_route_distance(route)
+        packages = self.checker_package_id(route)
+        route_distance = self.distances.calculate_total_route_distance(route.route)
         package_load = sum([p.weight for p in packages])
         route.assigned_truck = self.app_data.assign_truck(route_distance, package_load)
+        route.packages = packages
         self.app_data.daily_packages = []
-        return f'New route was created!'
-    def checker_package_id(self):
+        return self.info()
+    def checker_package_id(self, route):
         packages = []
         for i in self.package_ids:
-            packages.append(self.app_data.find_package(i))
+            current_package = self.app_data.find_package(i)
+            current_package.route = route                      #???????
+            packages.append(current_package)
         return packages
+
+
+    def info(self):
+        result = f'Packages assigned to route with id number {self.route_id}:\n'
+        for i in self.package_ids:
+            result += f'{i}\n'
+
+        return result.strip()
 
 
     # def assign_truck(self, distance, load):

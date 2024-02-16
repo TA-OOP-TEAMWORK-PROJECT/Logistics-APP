@@ -5,13 +5,15 @@ from datetime import datetime, timedelta
 
 def validate_params_count(params: list[str], count: int):
     if len(params) != count:
-        raise InvalidParams(count)
+        raise ValueError('Missing parametres')
 
 def try_parse_float(float_string: str):
     try:
         return float(float_string)
     except:
         raise ValueError('Can not turn to float number!')
+
+
 
 def parse_custom_datetime(date_str):
     date_str = re.sub(r'(st|nd|rd|th)', '', date_str)

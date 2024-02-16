@@ -5,7 +5,8 @@ from core.application_data import ApplicationData
 class AssignPackageToRouteCommand:       #Use case 1
     def __init__(self, params, app_data: ApplicationData):
         validate_params_count(params, 2)
-        self.package_id, self.route_id = params #не може да са инт
+        self.route_id = params[0]
+        self.package_id = params[1]
         self.app_data = app_data
 
     def execute(self):
@@ -16,7 +17,6 @@ class AssignPackageToRouteCommand:       #Use case 1
             # load = self.load_checker(possible_route, package)
             try:
                 load = self.check_destination_load(possible_route, package)
-                possible_route.load += load
                 possible_route.packages.append(package) # Да се намрави функция, която маха товар при крайна дестинация
                 return f"Package {self.package_id} assigned to route {self.route_id}."
             except:
@@ -34,9 +34,10 @@ class AssignPackageToRouteCommand:       #Use case 1
                 break
             for i in possible_route.packages:     # Преминавам през пратките, които са асайнати на този път
                 if k == i.start_location:         #Ако града, в който сме в момента е техният старт град, я товаря
-                    pak.append(i)                  #добарям пратката като натоварена
+                    pak.append(i)                  #добарям пратката като натоварена????
                     some_destination_load += i.weight  #Пресмятам килограмите
                     end_loc.append(i.end_location)
+
                 for end in range(len(pak)):            #ПРоверявам дали случайно не сме в град, в който пратка трябва да се свали
                     if k == pak[end].end_location:      #Ако да я изваждам
                         some_destination_load -= pak[end].weight
@@ -58,9 +59,9 @@ class AssignPackageToRouteCommand:       #Use case 1
         # return sum([pak.weight for pak in possible_route.packages[start_index:end_index+1]])
 
 
-def calculate_route_distance(self):
-    locations_sequence = [self.start_location] + [stop['location'] for stop in self.stops] + [self.end_location]
-    return self.distances.calculate_total_route_distance(locations_sequence)
+# def calculate_route_distance(self):
+#     locations_sequence = [self.start_location] + [stop['location'] for stop in self.stops] + [self.end_location]
+#     return self.distances.calculate_total_route_distance(locations_sequence)
 
 
 
