@@ -4,6 +4,7 @@ from core.application_data import ApplicationData
 from models.distances import CitiesDistances
 from validation_helpers import parse_departure_time
 
+
 class CreateDeliveryRouteCommand:
     def __init__(self, params:list [str], app_data:ApplicationData):
         validate_params_count(params, 4)
@@ -31,7 +32,6 @@ class CreateDeliveryRouteCommand:
             possible_route[command] = next_arr_time
             prev_city = command
             command = input()
-
         return possible_route
 
     @staticmethod

@@ -30,7 +30,7 @@ class ApplicationData:
         return self._trucks
 
 
-    def create_customer(self, name, phone_number):
+    def create_customer(self, name, phone_number): # validation_helperss?
         customer = Customer(name, phone_number)
         self._customers.append(customer)
 

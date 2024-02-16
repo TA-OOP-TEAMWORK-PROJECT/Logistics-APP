@@ -1,20 +1,29 @@
 import os
 from models.location import Location
 from generate_id.id_generator import PackageIdGenerator
+from commands.validation_helpers import find_customer
 
 class Package:
 
-
-    def __init__(self, start_location, end_location, weight, customer):
+    def __init__(self, start_location, end_location, weight, customer_number):
         self.id = PackageIdGenerator.generate_next_package_id()
         self._start_location = start_location
         self._end_location = end_location
         self._weight = weight
-        self.customer = customer   #for customer information
+        self.customer_id = customer_number   #при създаването ще имаме само id, za towa тук трябва да има функиция от апп дата, която връща customer
         self.route = None    # classROUTE
         self.status = None
         self.daily_storage = []
         self.save_to_file()
+
+    # @property
+    # def customer(self):
+    #     return self._customer
+    #
+    # @customer.setter
+    # def customer(self, value):
+    #     app_data = ApplicationData()
+    #     self._customer = find_customer(value)
 
 
     @property
@@ -52,10 +61,6 @@ class Package:
                 f"End Location: {self._end_location}, Weight: {self._weight:.2f}, "
                 f"Customer: {self.customer.name if self.customer else 'Package is not yet assigned'}, Assigned Route: {self.route.route_id if self.route else 'None'}")
 
-
-
-    def __str__(self):
-        pass
 
     def save_to_file(self):
         package_info = {
