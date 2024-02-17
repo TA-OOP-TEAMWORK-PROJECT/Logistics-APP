@@ -44,7 +44,7 @@ class AssignPackageToRouteCommand:       #Use case 1
 
         if some_destination_load <= (possible_route.assigned_truck.capacity_kg - some_destination_load):
             return some_destination_load
-        raise ValueError ('Not enough free space')
+        raise ValueError('Not enough free space')
 
 
         # start_index = 0

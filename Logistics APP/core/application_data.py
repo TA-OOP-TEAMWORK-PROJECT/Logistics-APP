@@ -147,16 +147,3 @@ class ApplicationData:
                 if package.route.expected_arrival_time <= current_time:
                     package.status = PackageStatus.DELIVERED
 
-
-    # update_route(),show_routes(), show_packages()
-    # def add_truck(self, truck_type):
-    #     if truck_type == "Actros":
-    #         truck = Actros()
-    #     elif truck_type == "Man":
-    #         truck = Man()
-    #     elif truck_type == "Scania":
-    #         truck = Scania()
-    #     else:
-    #         raise ValueError("Unknown truck type.")
-    #     self._trucks.append(truck)
-    #     return truck

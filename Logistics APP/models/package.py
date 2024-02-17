@@ -11,7 +11,7 @@ class Package:
         self.end_location = end_location
         self._weight = weight
         self.customer = customer   #for customer information
-        self.route = None    # classROUTE
+        # self.route = None    # classROUTE
         self.status = PackageStatus.NOT_ASSIGNED
         self.save_to_file()
 
@@ -56,8 +56,8 @@ class Package:
             'start_location': self.start_location,
             'end_location': self.end_location,
             'weight': self.weight,
-            'customer': self.customer.name if self.customer else None,
-            'route': self.route.route_id if self.route else None         # nqma route
+            'customer': self.customer.name if self.customer else None
+            # 'route': self.route.route_id if self.route else None
         }
 
         directory_path = 'packages_info'
