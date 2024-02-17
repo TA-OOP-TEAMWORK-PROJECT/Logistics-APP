@@ -17,13 +17,15 @@ class BulkAssignPackagesToRouteCommand:
         route.assigned_truck = self.app_data.assign_truck(route_distance, package_load)
         route.packages = packages
         self.app_data.daily_packages = []
+
         return self.info()
     def checker_package_id(self, route):
         packages = []
         for i in self.package_ids:
             current_package = self.app_data.find_package(i)
-            current_package.route = route                      #???????
-            packages.append(current_package)
+            if current_package:
+                self.app_data.assign_package_to_route(current_package, route)
+                packages.append(current_package)
         return packages
 
 
