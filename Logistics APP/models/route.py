@@ -7,7 +7,7 @@ from models.actros import Actros
 from models.man import Man
 from models.scania import Scania
 from commands.validation_helpers import parse_departure_time
-# from core.application_data import ApplicationData
+
 
 class Route:
     def __init__(self, start_location, end_location):
