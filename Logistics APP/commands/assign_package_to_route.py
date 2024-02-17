@@ -11,13 +11,14 @@ class AssignPackageToRouteCommand:       #Use case 1
 
     def execute(self):
 
-        possible_route = self.app_data.find_route(self.route_id)
+        route = self.app_data.find_route(self.route_id)
         package = self.app_data.find_package(self.package_id)
-        if possible_route and package:
-            # load = self.load_checker(possible_route, package)
+        if route and package:
+            # load = self.load_checker(route, package)
             try:
-                load = self.check_destination_load(possible_route, package)
-                possible_route.packages.append(package) # Да се намрави функция, която маха товар при крайна дестинация
+                load = self.check_destination_load(route, package)
+                self.app_data.assign_package_to_route(package, route)
+
                 return f"Package {self.package_id} assigned to route {self.route_id}."
             except:
                 raise ValueError('No free space to load the package!')
@@ -44,7 +45,7 @@ class AssignPackageToRouteCommand:       #Use case 1
 
         if some_destination_load <= (possible_route.assigned_truck.capacity_kg - some_destination_load):
             return some_destination_load
-        raise ValueError ('Not enough free space')
+        raise ValueError('Not enough free space')
 
 
         # start_index = 0

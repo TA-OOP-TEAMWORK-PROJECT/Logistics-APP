@@ -6,7 +6,6 @@ from models.actros import Actros
 from models.man import Man
 from models.scania import Scania
 from models.package_status import PackageStatus
-from math import ceil
 
 
 class ApplicationData:
@@ -124,40 +123,28 @@ class ApplicationData:
                 routes_in_progress.append(route)
         return routes_in_progress
 
-    def assign_package_to_route(self, package_id, route_id):
-        package = self.find_package(package_id)
-        route = self.find_route(route_id)
-        if package and route:
-            package.route = route
-            package.status = PackageStatus.ASSIGNED_TO_ROUTE
-            route.packages.append(package)
-        else:
-            raise ValueError("Package not found.")
+    def assign_package_to_route(self, package, route):
 
-    def package_is_delivered(self, package_id):
-        package = self.find_package(package_id)
-        if package:
-            package.status = PackageStatus.DELIVERED
-        else:
-            raise ValueError("There is no such package.")
+        package.route = route
+        package.status = PackageStatus.ASSIGNED_TO_ROUTE
+        route.packages.append(package)
 
-    def update_packages_status_in_transit(self):
-        current_time = datetime.now()
-        for package in self.daily_packages:
-            if package.route and package.status == PackageStatus.ASSIGNED_TO_ROUTE:
-                if package.route.expected_arrival_time <= current_time:
+    def route_progress(self):
+        time_now = datetime.now()
+        passed_cities = []
+
+        for route in self._routes:
+            for city, arr_time in route.route:
+                if arr_time.day <= time_now.day:
+                    passed_cities.append(city)
+
+        return passed_cities
+
+    def delivered_packages(self):
+        passed_cities = self.route_progress()
+
+        for rt in self._routes:
+            for package in rt.packages:
+                if package.end_location in passed_cities:
                     package.status = PackageStatus.DELIVERED
 
-
-    # update_route(),show_routes(), show_packages()
-    # def add_truck(self, truck_type):
-    #     if truck_type == "Actros":
-    #         truck = Actros()
-    #     elif truck_type == "Man":
-    #         truck = Man()
-    #     elif truck_type == "Scania":
-    #         truck = Scania()
-    #     else:
-    #         raise ValueError("Unknown truck type.")
-    #     self._trucks.append(truck)
-    #     return truck
