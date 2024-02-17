@@ -149,7 +149,7 @@ class ApplicationData:
             for city, arr_time in route.route.items():
                 cnt += 1
                 if cnt == len(route.route) and arr_time.day <= time_now.day:
-                    route.assigned_truck.release()
+                    route.assigned_truck.release()    #'CreateDeliveryRouteCommand'
 
                 # else:
                 #     new_routes_arr.append(route)
