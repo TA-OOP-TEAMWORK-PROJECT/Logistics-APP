@@ -89,6 +89,7 @@ class ApplicationData:
 
     def create_route(self, start_location, end_location):
         route = Route(start_location, end_location)
+        # self._routes.append(route)
         return route
 
     def assign_truck(self, distance, load):
