@@ -23,5 +23,5 @@ def parse_custom_datetime(date_str):
 def parse_departure_time():
     datetime_now = datetime.now()
     tomorrow_date = datetime_now + timedelta(days=1)
-    tomorrow_datе = datetime(tomorrow_date.year, tomorrow_date.month, tomorrow_date.day, 6, 0)
-    return tomorrow_datе
+    departure_time = datetime(tomorrow_date.year, tomorrow_date.month, tomorrow_date.day, 6, 0)
+    return departure_time
