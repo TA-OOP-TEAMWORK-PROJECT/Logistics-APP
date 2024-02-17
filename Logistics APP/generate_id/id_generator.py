@@ -33,3 +33,4 @@ class TruckIdGenerator:
         self.available_ids = set(range(self.start, self.end + 1))
         self.used_ids = set()
 
+
