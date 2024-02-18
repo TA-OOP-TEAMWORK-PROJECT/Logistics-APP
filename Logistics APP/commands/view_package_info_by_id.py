@@ -9,8 +9,10 @@ class ViewPackageInfoByIdCommand:        #Use Case 5
         self.app_data = app_data
 
     def execute(self):
-        package = self.app_data.find_package(self.package_id)
-        if package:
-            return package.info()
+        daily_package = self.app_data.find_package(self.package_id)
+        package_on_route = self.app_data.find_in_progress_package(self.package_id)
+
+        if daily_package or package_on_route:
+            return package_on_route.info() if package_on_route else daily_package.info()
         else:
             return f"No package found with ID {self.package_id}"

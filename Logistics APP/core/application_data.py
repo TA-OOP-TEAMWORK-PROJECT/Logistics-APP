@@ -51,6 +51,15 @@ class ApplicationData:
                 return pkg
         return None
 
+    def find_in_progress_package(self, pak_id):
+
+        for r in self._routes:
+            for pk in r.packages:
+                if pk.id == pak_id:
+                    return pk
+        return None
+
+
     def find_route(self, route_id):
         for rt in self._routes:
             if rt.route_id == route_id:
@@ -108,16 +117,18 @@ class ApplicationData:
         self._trucks.append(truck)
         return truck
 
-
-    def view_unassigned_packages(self):
+    def view_unassigned_packages(self): #Само daily_packages
         unassigned_packages = []
+
         for pkg in self.daily_packages:
             if not pkg.route:
                 unassigned_packages.append(pkg)
+
         return unassigned_packages
 
     def view_routes_in_progress(self):
         routes_in_progress = []
+
         for route in self._routes:
             if route.is_in_progress():
                 routes_in_progress.append(route)
@@ -129,12 +140,29 @@ class ApplicationData:
         package.status = PackageStatus.ASSIGNED_TO_ROUTE
         route.packages.append(package)
 
+    def completed_routes(self): # !!!!!
+        time_now = datetime.now()
+        cnt = 0
+        new_routes_arr = []
+
+        for route in self._routes:
+            for city, arr_time in route.route.items():
+                cnt += 1
+                if cnt == len(route.route) and arr_time.day <= time_now.day:
+                    route.assigned_truck.release()    #'CreateDeliveryRouteCommand'
+
+                # else:
+                #     new_routes_arr.append(route)
+
+        self._routes = new_routes_arr
+
+
     def route_progress(self):
         time_now = datetime.now()
         passed_cities = []
 
         for route in self._routes:
-            for city, arr_time in route.route:
+            for city, arr_time in route.route.items():
                 if arr_time.day <= time_now.day:
                     passed_cities.append(city)
 
@@ -142,9 +170,16 @@ class ApplicationData:
 
     def delivered_packages(self):
         passed_cities = self.route_progress()
+        delivered_packages = []
 
-        for rt in self._routes:
-            for package in rt.packages:
-                if package.end_location in passed_cities:
-                    package.status = PackageStatus.DELIVERED
+        if passed_cities:
+            for rt in self._routes:
+                for package in rt.packages:
+                    if package.end_location in passed_cities:
+                        package.status = PackageStatus.DELIVERED
+                        delivered_packages.append(package.id)
+
+            return delivered_packages
+        raise ValueError('No package has reached a final destination yet!')
+
 

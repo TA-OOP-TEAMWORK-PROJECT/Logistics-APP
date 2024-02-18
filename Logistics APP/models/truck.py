@@ -2,6 +2,7 @@ import os
 from models.truck_status import TruckStatus
 
 
+
 class Truck:
     def __init__(self, truck_id, truck_brand, capacity_kg, max_range_km):
         self._truck_id = truck_id
@@ -55,6 +56,7 @@ class Truck:
         self.status = TruckStatus.FREE
         self.current_route = None
         self.current_load_kg = 0
+
 
     def save_to_file(self):
         truck_info = {
