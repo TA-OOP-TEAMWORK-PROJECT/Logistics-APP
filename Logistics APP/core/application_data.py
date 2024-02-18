@@ -134,27 +134,26 @@ class ApplicationData:
                 routes_in_progress.append(route)
         return routes_in_progress
 
-    def assign_package_to_route(self, package, route):
-
+    def assign_package_to_route(self, package_id, route_id):
+        package = self.find_package(package_id)
+        route = self.find_route(route_id)
+        if not package or not route:
+            raise ValueError("Package or Route not found.")
         package.route = route
         package.status = PackageStatus.ASSIGNED_TO_ROUTE
         route.packages.append(package)
 
-    def completed_routes(self): # !!!!!
+    def completed_routes(self):  # !!!!!
         time_now = datetime.now()
-        cnt = 0
-        new_routes_arr = []
+        # active_routes = []
 
         for route in self._routes:
-            for city, arr_time in route.route.items():
-                cnt += 1
-                if cnt == len(route.route) and arr_time.day <= time_now.day:
-                    route.assigned_truck.release()    #'CreateDeliveryRouteCommand'
-
-                # else:
-                #     new_routes_arr.append(route)
-
-        self._routes = new_routes_arr
+            if route.expected_arrival_time >= time_now:
+                for package in route.packages:
+                    package.status = PackageStatus.DELIVERED
+                if route.assigned_truck is not None:
+                    route.assigned_truck.release()
+                    print(f"Truck {route.assigned_truck.truck_id} successfully released.")
 
 
     def route_progress(self):
@@ -169,17 +168,16 @@ class ApplicationData:
         return passed_cities
 
     def delivered_packages(self):
-        passed_cities = self.route_progress()
-        delivered_packages = []
+        delivered_package_ids = []
+        for route in self._routes:
+            for package in route.packages:
+                if package.status == PackageStatus.DELIVERED:
+                    delivered_package_ids.append(package.id)
 
-        if passed_cities:
-            for rt in self._routes:
-                for package in rt.packages:
-                    if package.end_location in passed_cities:
-                        package.status = PackageStatus.DELIVERED
-                        delivered_packages.append(package.id)
+        if not delivered_package_ids:
+            raise ValueError('No package has reached a final destination yet!')
 
-            return delivered_packages
-        raise ValueError('No package has reached a final destination yet!')
+        return delivered_package_ids
+
 
 

@@ -1,6 +1,6 @@
 from models.truck import Truck
 from generate_id.id_generator import TruckIdGenerator
-from models.truck_status import TruckStatus
+
 
 
 class Man(Truck):
@@ -16,7 +16,5 @@ class Man(Truck):
 
 
     def release(self):
-        self.status = TruckStatus.FREE
-        self.man_id_generator.used_ids.remove(self.truck_id)
-        self.current_route = None
-        self.current_load_kg = 0
+        super().release()
+        Man.man_id_generator.release_id(self.truck_id)

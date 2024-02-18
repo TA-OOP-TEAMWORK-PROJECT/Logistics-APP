@@ -29,6 +29,11 @@ class TruckIdGenerator:
         self.used_ids.add(new_id)
         return new_id
 
+    def release_id(self, truck_id):
+        if truck_id in self.used_ids:
+            self.used_ids.remove(truck_id)
+            self.available_ids.add(truck_id)
+
     def reset(self):        #Използваме го само за тестовете, защото вади Exception: No IDs available., без него.
         self.available_ids = set(range(self.start, self.end + 1))
         self.used_ids = set()
