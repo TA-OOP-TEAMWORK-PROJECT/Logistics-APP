@@ -115,7 +115,7 @@ class ApplicationData_Should(unittest.TestCase):
 
         # Act
         self.app_data.assign_package_to_route(package.id, route.route_id)
-        self.app_data.package_is_delivered(package.id)
+        self.app_data.delivered_packages(route)
 
         # Assert
         self.assertEqual(package.status, PackageStatus.DELIVERED)
