@@ -35,7 +35,7 @@ class Trucks_Should(unittest.TestCase):
         truck.update_load(load_weight)
 
         # Assert
-        self.assertEqual(truck.current_load_kg, load_weight)
+        self.assertEqual(truck.current_load, load_weight)
         # self.assertEqual(truck.status, TruckStatus.FREE)
         self.assertEqual(truck.status, TruckStatus.ON_THE_ROAD_NOT_FULL)
         self.assertNotEqual(truck.status, TruckStatus.ON_THE_ROAD_FULL)
@@ -85,7 +85,7 @@ class Trucks_Should(unittest.TestCase):
         # Assert
         self.assertEqual(truck.status, TruckStatus.FREE)
         self.assertIsNone(truck.current_route)
-        self.assertEqual(truck.current_load_kg, 0)
+        self.assertEqual(truck.current_load, 0)
         self.assertTrue(truck.check_availability())
 
     def test_AssignAndReleaseRoute(self):

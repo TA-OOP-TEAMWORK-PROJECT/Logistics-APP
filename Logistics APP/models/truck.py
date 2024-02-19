@@ -35,9 +35,9 @@ class Truck:
         return self.status in [TruckStatus.FREE, TruckStatus.ON_THE_ROAD_NOT_FULL]
 
     def update_load(self, package_weight):     # when assign package
-        new_load = self.current_load_kg + package_weight
+        new_load = self.current_load + package_weight
         if new_load <= self.capacity_kg:
-            self.current_load_kg = new_load
+            self.current_load = new_load
             if new_load == self.capacity_kg:
                 self.status = TruckStatus.ON_THE_ROAD_FULL
             else:
@@ -55,7 +55,7 @@ class Truck:
     def release(self):
         self.status = TruckStatus.FREE
         self.current_route = None
-        self.current_load_kg = 0
+        self.current_load = 0
 
 
     def save_to_file(self):
@@ -66,7 +66,7 @@ class Truck:
             'max_range_km': self.max_range_km,
             'status': self.status,
             'current_route': self.current_route,
-            'current_load_kg': self.current_load_kg
+            'current_load_kg': self.current_load
         }
 
         directory_path = 'trucks_info'
