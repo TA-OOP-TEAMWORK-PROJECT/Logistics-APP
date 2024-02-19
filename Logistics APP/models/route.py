@@ -26,8 +26,8 @@ class Route:
 
     def info(self):
         return (f"Route ID: {self.route_id}, Start Location: {self.start_location}, "
-                f"End Location: {self.end_location}, Departure Time: {self.departure_time}, "
-                f"Expected Arrival Time: {self.expected_arrival_time}, "
+                f"End Location: {self.end_location}, Departure Time: {self.departure_time.strftime('%b %dth %H:%Mh')}, "
+                f"Expected Arrival Time: {self.expected_arrival_time.strftime('%b %dth %H:%Mh')},  "
                 f"Assigned Truck: {self.assigned_truck.truck_id if self.assigned_truck else 'None'}")
 # f"{Sydney} (Oct 12th 06:00h) → Melbourne (Oct 12th 20:00h) → Adelaide (Oct 13th 15:00h)
 
