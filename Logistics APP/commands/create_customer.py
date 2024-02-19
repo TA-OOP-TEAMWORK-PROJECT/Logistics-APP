@@ -9,7 +9,10 @@ class CreateCustomerCommand:
         self._app_data = app_data  
 
     def execute(self):
-        name, number = self._params  
+        name, number = self._params
+
+        if not name or not number:
+            raise ValueError("Name and number cannot be empty.")
         
         if self._app_data.find_customer(number):  
             raise ValueError('Customer with that number already exists!')  
