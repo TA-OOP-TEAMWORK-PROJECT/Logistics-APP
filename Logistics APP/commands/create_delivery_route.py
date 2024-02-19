@@ -11,7 +11,7 @@ class CreateDeliveryRouteCommand:
         self.params = params
         self._app_data = app_data
         self.distances = CitiesDistances()
-        self.route = None
+
 
     def execute(self):
         completed_routes = self._app_data.completed_routes()
@@ -22,6 +22,7 @@ class CreateDeliveryRouteCommand:
         new_route.expected_arrival_time = list(new_route.route.values())[-1]
         self.route = new_route
         self._app_data._routes.append(new_route)
+        # return new_route
         return f'Route with {new_route.route_id} was created!'
 
 

@@ -3,9 +3,9 @@ import re
 from datetime import datetime, timedelta
 
 
-def validate_params_count(params: list[str], count: int):
+def validate_params_count(params: list[str], count: int, cmd_name):
     if len(params) != count:
-        raise ValueError('Missing parametres')
+        raise InvalidParams(count, cmd_name)
 
 def try_parse_float(float_string: str):
     try:

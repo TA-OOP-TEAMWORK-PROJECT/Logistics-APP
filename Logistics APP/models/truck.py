@@ -34,7 +34,7 @@ class Truck:
     def check_availability(self):
         return self.status in [TruckStatus.FREE, TruckStatus.ON_THE_ROAD_NOT_FULL]
 
-    def update_load(self, package_weight):
+    def update_load(self, package_weight):     # when assign package
         new_load = self.current_load_kg + package_weight
         if new_load <= self.capacity_kg:
             self.current_load_kg = new_load
@@ -45,9 +45,9 @@ class Truck:
         else:
             raise ValueError("We cannot have more packages. The truck is full!")
 
-    def assign_to_route(self, route_id):
+    def assign_to_route(self, route):
         if self.check_availability():
-            self.current_route = route_id
+            self.current_route = route
             self.status = TruckStatus.ON_THE_ROAD_NOT_FULL
         else:
             raise Exception("Truck is not available for new assignments")

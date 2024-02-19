@@ -58,16 +58,6 @@ class Route:
         else:
             raise ValueError(f"Truck ID {truck_id} is not valid !")
 
-    def assign_truck(self, truck):
-        if truck.check_availability() and self.truck_is_compatible(truck):
-            self.assigned_truck = truck
-            truck.assign_to_route(self.route_id)
-            self.event_logs.append(EventLog(f"Truck {truck.truck_id} assigned to route {self.route_id}."))
-        else:
-            self.event_logs.append(
-                EventLog(f"Truck {truck.truck_id} is not available or not compatible with the route requirements."))
-            raise ValueError(f"Truck {truck.truck_id} is not available or not compatible with the route requirements.")
-
 
     def info(self):
         return (f"Route ID: {self.route_id}, Start Location: {self.start_location}, "
@@ -99,8 +89,15 @@ class Route:
         with open(file_path, 'a') as file:
             file.write(str(route_info) + '\n')
 
-
-
+    # def assign_truck(self, truck):
+    #     if truck.check_availability() and self.truck_is_compatible(truck):
+    #         self.assigned_truck = truck
+    #         truck.assign_to_route(self.route_id)
+    #         self.event_logs.append(EventLog(f"Truck {truck.truck_id} assigned to route {self.route_id}."))
+    #     else:
+    #         self.event_logs.append(
+    #             EventLog(f"Truck {truck.truck_id} is not available or not compatible with the route requirements."))
+    #         raise ValueError(f"Truck {truck.truck_id} is not available or not compatible with the route requirements.")
 
 
     #         self.event_logs = []

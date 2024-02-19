@@ -6,6 +6,7 @@ from models.actros import Actros
 from models.man import Man
 from models.scania import Scania
 from models.package_status import PackageStatus
+from models.truck import Truck
 
 
 class ApplicationData:
@@ -101,20 +102,29 @@ class ApplicationData:
         return route
 
     def assign_truck(self, distance, load):
-        if (0 <= distance <= 8000) and ( 0 <= load <= 42000):
+        if distance < 13000 or load > 42000:
+            raise ValueError('')
+        if (0 <= distance <= 8000) and (0 <= load <= 42000) and Scania.check_availability:
             truck = Scania()
+            self._trucks.append(truck)
+            return truck
             # return self.app_data.add_truck('Scania', truck_id=10001)
 
         elif (0 <= distance <= 10000) and (0 <= load <= 37000):
             truck = Man()
+            self._trucks.append(truck)
+            return truck
+
             # return self.app_data.add_truck('Scania', truck_id=10002)
 
         elif (0 <= distance <= 13000) and (0 <= load <= 26000):
             truck = Actros()
+            self._trucks.append(truck)
+            return truck
+
             # return self.app_data.add_truck('Scania', truck_id=10003)
         else:
             return ValueError("Unknown truck type.")
-        self._trucks.append(truck)
         return truck
 
     def view_unassigned_packages(self): #Само daily_packages

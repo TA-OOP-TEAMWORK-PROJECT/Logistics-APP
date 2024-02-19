@@ -13,4 +13,4 @@ class ViewRouteCommand:
         star_location = self._params[0]
         end_location = self._params[1]
         route = self._app_data.show_route_by_start_end_location(star_location, end_location)
-        return route.to_string()
+        return route.info()

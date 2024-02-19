@@ -40,7 +40,7 @@ class AssignPackageToRouteCommand:       #Use case 1
 
                 for end in range(len(pak)):            #ПРоверявам дали случайно не сме в град, в който пратка трябва да се свали
                     if k == pak[end].end_location:      #Ако да я изваждам
-                        some_destination_load -= pak[end].weight
+                        some_destination_load -= pak[end].weight #Delivered package
 
         if some_destination_load <= (possible_route.assigned_truck.capacity_kg - some_destination_load):
             return some_destination_load
