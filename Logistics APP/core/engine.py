@@ -28,7 +28,7 @@ class Engine:
 
         print('\n'.join(output))
 
-#
+
 customer1 = Customer('Pesho', 359888010101)
 customer2 = Customer('Vanko', 359888010102)
 package1 = Package('Brisbane', 'Sydney', 50, customer1)
@@ -38,16 +38,19 @@ route = CreateDeliveryRouteCommand(['Sydney', 'Adelaide'], app_data)
 
 time_now = datetime.now()
 time_tomorrow = time_now + timedelta(days=1)
+route.execute()
 route.route = {'Sydney': time_now, 'Adelaide': time_now}
 route.packages = [package1, package2]
 app_data._routes.append(route)
-route.execute()
+# AttributeError: 'CreateDeliveryRouteCommand' object has no attribute 'expected_arrival_time'
+# AttributeError: 'CreateDeliveryRouteCommand' object has no attribute 'expected_arrival_time'
+route.route.execute() #
 
 app_data._routes.append(route)
 print(app_data.delivered_packages())
 v = ViewPackageInfoByIdCommand([package1.id], app_data)
 vv = ViewPackageInfoByIdCommand([package2.id], app_data)
-print(v.execute())
+v.execute()
 print(vv.execute())
 
 

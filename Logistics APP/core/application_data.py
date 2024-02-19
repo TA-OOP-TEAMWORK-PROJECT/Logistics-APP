@@ -134,18 +134,13 @@ class ApplicationData:
                 routes_in_progress.append(route)
         return routes_in_progress
 
-    def assign_package_to_route(self, package_id, route_id):
-        package = self.find_package(package_id)
-        route = self.find_route(route_id)
-        if not package or not route:
-            raise ValueError("Package or Route not found.")
+    def assign_package_to_route(self, package, route):
         package.route = route
         package.status = PackageStatus.ASSIGNED_TO_ROUTE
         route.packages.append(package)
 
-    def completed_routes(self):  # !!!!!
+    def completed_routes(self):
         time_now = datetime.now()
-        # active_routes = []
 
         for route in self._routes:
             if route.expected_arrival_time >= time_now:

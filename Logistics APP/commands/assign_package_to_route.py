@@ -17,7 +17,7 @@ class AssignPackageToRouteCommand:       #Use case 1
             # load = self.load_checker(route, package)
             try:
                 load = self.check_destination_load(route, package)
-                self.app_data.assign_package_to_route(package, route)
+                self.app_data.assign_package_to_route(package, route)  #TODO DO it to to look better!!!
                 return f"Package {self.package_id} assigned to route {self.route_id}."
             except:
                 raise ValueError('No free space to load the package!')
