@@ -2,7 +2,7 @@ from core.application_data import ApplicationData
 from commands.validation_helpers import validate_params_count
 from models.route import Route
 
-class ViewRoutesInProgressCommand:          #Use case 3
+class ViewRoutesInProgressCommand:
     def __init__(self, app_data: ApplicationData):
         self.app_data = app_data
 
