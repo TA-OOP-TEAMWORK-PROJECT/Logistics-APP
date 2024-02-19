@@ -155,4 +155,46 @@ All rights reserved
 - Nikolay Stankov
 
 
+### Example input
 
+```
+createcustomer Pesho 359888010101
+createcustomer Vanko 359888010102
+createpackage Sydney Adelaide 50 359888010101
+createpackage Melbourne Adelaide 50 359888010102
+viewunassignedpackages
+createdeliveryroute Sydney Darwin
+Melbourne
+Adelaide
+Perth
+end
+bulkassignpackagestoroute Route00001 Pkg00001 Pkg00002
+createpackage Sydney Adelaide 50 359888010102
+viewpackageinfobyid Pkg00001
+viewpackageinfobyid Pkg00002
+assignpackagetoroute Route00001 Pkg00003
+viewpackageinfobyid Pkg00003
+viewroute Route00001
+exit
+```
+
+### Example output
+
+```
+New customer with name Pesho and number 359888010101 created!
+New customer with name Vanko and number 359888010102 created!
+Package with Pkg00001 was created!
+Package with Pkg00002 was created!
+Package ID: Pkg00001, Status: not_assigned, Start Location: Sydney, End Location: Adelaide, Weight: 50.0kg
+Package ID: Pkg00002, Status: not_assigned, Start Location: Melbourne, End Location: Adelaide, Weight: 50.0kg
+Route with Route00001 was created!
+Packages assigned to route with id number Route00001:
+Pkg00001
+Pkg00002
+Package with Pkg00003 was created!
+Package ID: Pkg00001, Status: assigned_to_route, Start Location: Sydney, End Location: Adelaide, Weight: 50.0kg, Assigned Route: Route00001        
+Package ID: Pkg00002, Status: assigned_to_route, Start Location: Melbourne, End Location: Adelaide, Weight: 50.0kg, Assigned Route: Route00001     
+Package Pkg00003 assigned to route Route00001.
+Package ID: Pkg00003, Status: assigned_to_route, Start Location: Sydney, End Location: Adelaide, Weight: 50.0kg, Assigned Route: Route00001        
+Route ID: Route00001, Start Location: Sydney, End Location: Darwin, Departure Time: Feb 20th 06:00h, Expected Arrival Time: Feb 25th 10:01h,  Assigned Truck: 1001
+```
