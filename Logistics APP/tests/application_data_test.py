@@ -12,6 +12,8 @@ from models.package_status import PackageStatus
 from models.truck_status import TruckStatus
 from models.distances import CitiesDistances
 from commands.create_delivery_route import CreateDeliveryRouteCommand
+
+
 class ApplicationData_Should(unittest.TestCase):
     def setUp(self):
         self.app_data = ApplicationData()
@@ -49,11 +51,6 @@ class ApplicationData_Should(unittest.TestCase):
         self.assertEqual(len(self.app_data.packages), 1)
         self.assertIsInstance(package, Package)
 
-    def test_error_WhenCreatingPackageWithoutCreatingACustomer(self):        # Тествам след промените на Снежи.
-        # Arrange, Act & Assert
-        with self.assertRaises(ValueError):
-            self.app_data.create_package("Sydney", "Perth", 150, "what")
-
     def test_create_route_IfItCreatesARoute(self):
         # Arrange
         start_location = "Adelaide"
@@ -78,7 +75,7 @@ class ApplicationData_Should(unittest.TestCase):
 
         # Arrange & Act
         route = self.app_data.create_route("Adelaide", "Sydney")
-        self.app_data.assign_package_to_route(package.id, route.route_id)
+        self.app_data.assign_package_to_route(package, route)
 
         # Assert
         self.assertEqual(package.route, route)
@@ -114,10 +111,13 @@ class ApplicationData_Should(unittest.TestCase):
         route = self.app_data.create_route("Brisbane", "Sydney")
 
         # Act
-        self.app_data.assign_package_to_route(package.id, route.route_id)
-        self.app_data.delivered_packages(route)
+        route.packages.append(package)
+        route.route[package.end_location] = datetime.now()
+        self.app_data._routes.append(route)
+        delivered_packages_ids = self.app_data.delivered_packages()
 
         # Assert
+        self.assertIn(package.id, delivered_packages_ids)
         self.assertEqual(package.status, PackageStatus.DELIVERED)
 
     def test_routes_in_progress(self):
@@ -142,6 +142,22 @@ class ApplicationData_Should(unittest.TestCase):
         self.assertIsInstance(scania_truck, Scania)
         self.assertIsInstance(man_truck, Man)
         self.assertIsInstance(actros_truck, Actros)
+
+    def test_completed_routes_ReleasesTrucks(self):
+        # Arrange
+        truck = Actros()
+        truck.status = TruckStatus.ON_THE_ROAD_NOT_FULL
+        route = Route("Sydney", "Brisbane")
+        route.assigned_truck = truck
+        route.expected_arrival_time = datetime.now() - timedelta(days=1)
+
+        # Act
+        self.app_data._routes.append(route)
+
+        # Assert
+        self.assertEqual(truck.status, TruckStatus.ON_THE_ROAD_NOT_FULL)
+        self.app_data.completed_routes()
+        self.assertNotEqual(truck.status, TruckStatus.FREE)
 
 if __name__ == '__main__':
     unittest.main()

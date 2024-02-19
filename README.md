@@ -107,19 +107,6 @@ Usage: `viewpackage <start_location> <end_location>`
 Example: viewpackage "Sydney" "Melbourne"
 
 
-### Command: `searchroute`
-
-Description: Searches for a delivery route based on package start and end locations.
-
-Usage: `searchroute <start_location> <end_location>`
-
-- `<start_location>`: The starting location of the package. (string)
-
-- `<end_location>`: The ending location of the package. (string)
-
-Example: searchroute "Sydney" "Melbourne"
-
-
 ### Command: `viewpackageinfobyid`
 
 Description: Displays detailed information about a package based on its ID.
@@ -135,13 +122,11 @@ Example: viewpackageinfobyid Pkg00001
 
 Description: Displays information about a specific delivery route in the system.
 
-Usage: `viewroute <start_location> <end_location>`
+Usage: `viewroute <route_id>`
 
-- `<start_location>`: The starting location of the delivery route to be viewed. (string)
+- `<route_id>`: The unique identifier of the delivery route to which the packages will be bulk assigned. This should be in the format `RouteXXXXX`, where XXXXX represents the unique ID of the route. (string)
 
-- `<end_location>`: The ending location of the delivery route to be viewed.  (string)
-
-Example: viewroute "Sydney" "Melbourne"
+Example: viewroute Route00001
 
 
 ### Command: `viewrouteinprogress`
