@@ -23,9 +23,8 @@ class Route:
 
         self.save_to_file()
 
-    @property
     def load(self):
-        return sum(package.weight for package in self.packages)
+        self.assigned_truck.current_load = sum(package.weight for package in self.packages if not package.status == 'delivered')
 
     def add_package(self, package):
         if not self.assigned_truck:
