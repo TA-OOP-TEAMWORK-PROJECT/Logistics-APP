@@ -14,7 +14,8 @@ class CreateDeliveryRouteCommand:
 
 
     def execute(self):
-        completed_routes = self._app_data.completed_routes()
+
+        self._app_data.completed_routes()
         start = self.params[0]
         end = self.params[1]
         new_route = self._app_data.create_route(start, end)

@@ -25,7 +25,8 @@ class Route:
 
     @property
     def load(self):
-        return sum(package.weight for package in self.packages)
+        self.assigned_truck.current_load = sum(package.weight for package in self.packages)
+
 
     def add_package(self, package):
         if not self.assigned_truck:
