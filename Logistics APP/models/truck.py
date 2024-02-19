@@ -8,10 +8,10 @@ class Truck:
         self._truck_id = truck_id
         self._truck_brand = truck_brand
         self._capacity_kg = capacity_kg
+        self.current_load = 0
         self._max_range_km = max_range_km
         self.status = TruckStatus.FREE
         self.current_route = None
-        self.current_load_kg = 0
         self.save_to_file()
 
     @property

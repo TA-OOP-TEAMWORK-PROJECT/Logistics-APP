@@ -1,0 +1,5 @@
+{'truck_id': 1001, 'truck_brand': 'Scania', 'capacity_kg': 42000, 'max_range_km': 8000, 'status': <TruckStatus.FREE: 'free'>, 'current_route': None, 'current_load_kg': 0}
+{'truck_id': 1001, 'truck_brand': 'Scania', 'capacity_kg': 42000, 'max_range_km': 8000, 'status': <TruckStatus.FREE: 'free'>, 'current_route': None, 'current_load_kg': 0}
+{'truck_id': 1001, 'truck_brand': 'Scania', 'capacity_kg': 42000, 'max_range_km': 8000, 'status': <TruckStatus.FREE: 'free'>, 'current_route': None, 'current_load_kg': 0}
+{'truck_id': 1001, 'truck_brand': 'Scania', 'capacity_kg': 42000, 'max_range_km': 8000, 'status': <TruckStatus.FREE: 'free'>, 'current_route': None, 'current_load_kg': 0}
+{'truck_id': 1001, 'truck_brand': 'Scania', 'capacity_kg': 42000, 'max_range_km': 8000, 'status': <TruckStatus.FREE: 'free'>, 'current_route': None, 'current_load_kg': 0}
