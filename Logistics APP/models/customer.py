@@ -20,13 +20,11 @@ class Customer:
     def phone_number(self):
         return self._phone_number
 
-    # @phone_number.setter
-    # def phone_number(self, value):
-    #     try:
-    #         number_value = int(value)
-    #         self._phone_number = number_value
-    #     except ValueError:
-    #         raise ValueError('Phone number is invalid')
+    @phone_number.setter
+    def phone_number(self, value):
+        if not 0 <= len(value) <= 15 or not value.isdigit():
+            raise ValueError('Phone number is invalid')
+        self._phone_number = value
 
 
     def add_package(self):

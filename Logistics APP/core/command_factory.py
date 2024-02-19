@@ -41,4 +41,4 @@ class CommandFactory:
         if cmd_name.lower() == "viewunassignedpackages":
             return ViewUnassignedPackagesCommand(self._app_data)
 
-        raise InvalidCommand(cmd_name)
+        raise ValueError('Invalid command!')

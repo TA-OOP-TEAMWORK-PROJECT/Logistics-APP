@@ -22,7 +22,8 @@ class BulkAssignPackagesToRouteCommand:
         route.assigned_truck(truck)
         route.packages = packages
         self.app_data.daily_packages = []
-        
+        return self.info()
+
     def checker_package_id(self, route):
         packages = []
         for i in self.package_ids:

@@ -1,15 +1,18 @@
 import unittest
 from models.package import Package
+from models.customer import Customer
+
 
 class Package_Should(unittest.TestCase):
     def setUp(self):
-        self.package = Package("Sydney", "Melbourne", 10, "Customer")
+        self.customer = Customer("Gosho", "0897123456")
+        self.package = Package("Sydney", "Melbourne", 10, self.customer)
 
     def test_constructor_setsProperties_whenArgumentsAreValid(self):
         self.assertEqual(self.package._start_location, "Sydney")
         self.assertEqual(self.package._end_location, "Melbourne")
         self.assertEqual(self.package._weight, 10)
-        self.assertEqual(self.package.customer, "Customer")
+        self.assertEqual(self.package.customer, self.customer)
         self.assertIsNotNone(self.package.id)
 
     def test_start_location_setter_WhenGivenValidLocation(self):
@@ -58,9 +61,9 @@ class Package_Should(unittest.TestCase):
 
     def test_info_method(self):
         # Arrange & Act
-        expected_info = (f"Package ID: {self.package.id}, Start Location: Sydney, "
-                         f"End Location: Melbourne, Weight: 10, "
-                         f"Customer: Customer, Assigned Route: None")
+        expected_info = (f"Package ID: {self.package.id}, Status: {self.package.status.value}, "
+                         f"Start Location: {self.package.start_location}, "
+                         f"End Location: {self.package.end_location}, Weight: {self.package.weight}kg")
 
         # Assert
         self.assertEqual(self.package.info(), expected_info)
