@@ -22,7 +22,6 @@ class CreateDeliveryRouteCommand:
         new_route.expected_arrival_time = list(new_route.route.values())[-1]
         self.route = new_route
         self._app_data._routes.append(new_route)
-        return new_route
         return f'Route with {new_route.route_id} was created!'
 
 

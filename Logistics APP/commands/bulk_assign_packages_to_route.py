@@ -18,8 +18,8 @@ class BulkAssignPackagesToRouteCommand:
         package_load = sum([p.weight for p in packages])
 
         truck = self.app_data.assign_truck(route_distance, package_load)
-        truck.assign_to_route()
-        route.assigned_truck(truck)
+        truck.assign_to_route(route)
+        route.assigned_truck = truck
         route.packages = packages
         self.app_data.daily_packages = []
         return self.info()
