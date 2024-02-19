@@ -3,7 +3,6 @@ from errors.invalid_command import InvalidCommand
 from commands.create_customer import CreateCustomerCommand
 from commands.create_package import CreatePackageCommand
 from commands.create_delivery_route import CreateDeliveryRouteCommand
-from commands.search_route import SearchRouteCommand
 from commands.view_package import ViewPackagesCommand
 from commands.view_package_info_by_id import ViewPackageInfoByIdCommand
 from commands.view_route import ViewRouteCommand
@@ -33,8 +32,6 @@ class CommandFactory:
             return CreateDeliveryRouteCommand(params, self._app_data)
         if cmd_name.lower() == "viewpackage":
             return ViewPackagesCommand(params, self._app_data)
-        if cmd_name.lower() == "searchroute":
-            return SearchRouteCommand(params, self._app_data)
         if cmd_name.lower() == "viewpackageinfobyid":
             return ViewPackageInfoByIdCommand(params, self._app_data)
         if cmd_name.lower() == "viewroute":
