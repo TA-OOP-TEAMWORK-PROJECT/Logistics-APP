@@ -102,30 +102,28 @@ class ApplicationData:
         return route
 
     def assign_truck(self, distance, load):
-        if distance < 13000 or load > 42000:
-            raise ValueError('')
+
+        if distance > 13000 or load > 42000:
+            raise ValueError('There is no compatible truck!')
+
         if (0 <= distance <= 8000) and (0 <= load <= 42000) and Scania.check_availability:
             truck = Scania()
             self._trucks.append(truck)
             return truck
-            # return self.app_data.add_truck('Scania', truck_id=10001)
 
-        elif (0 <= distance <= 10000) and (0 <= load <= 37000):
+        if (0 <= distance <= 10000) and (0 <= load <= 37000):
             truck = Man()
             self._trucks.append(truck)
             return truck
 
-            # return self.app_data.add_truck('Scania', truck_id=10002)
-
-        elif (0 <= distance <= 13000) and (0 <= load <= 26000):
+        if (0 <= distance <= 13000) and (0 <= load <= 26000):
             truck = Actros()
             self._trucks.append(truck)
             return truck
 
-            # return self.app_data.add_truck('Scania', truck_id=10003)
         else:
             return ValueError("Unknown truck type.")
-        return truck
+
 
     def view_unassigned_packages(self): #Само daily_packages
         unassigned_packages = []
@@ -151,15 +149,12 @@ class ApplicationData:
 
     def completed_routes(self):
         time_now = datetime.now()
-        remaining_routes = []
 
         for route in self._routes:
             if route.expected_arrival_time.day >= time_now.day:
                 route.assigned_truck.release()
                 print(f"Truck {route.assigned_truck.truck_id} successfully released.")
-            else:
-                remaining_routes.append(route)
-        self._routes = remaining_routes
+
 
     def route_progress(self):
         time_now = datetime.now()

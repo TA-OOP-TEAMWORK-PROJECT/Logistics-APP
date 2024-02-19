@@ -8,6 +8,7 @@ from core.command_factory import CommandFactory
 from errors.invalid_command import InvalidCommand
 from models.customer import Customer
 from models.package import Package
+from models.route import Route
 
 
 class Engine:
@@ -39,13 +40,16 @@ create_route = CreateDeliveryRouteCommand(['Sydney', 'Adelaide'], app_data)
 
 time_now = datetime.now()
 time_tomorrow = time_now + timedelta(days=1)
-route = create_route.execute()
+# route = create_route.execute()
+route = Route('Sydney', 'Brisbane')
 route.route = {'Sydney': time_now, 'Adelaide': time_now}
 route.packages = [package1, package2]
+app_data.daily_packages = route.packages
 app_data._routes.append(route)
-bulk_ass = BulkAssignPackagesToRouteCommand([package1, package2], app_data)
+bulk_ass = BulkAssignPackagesToRouteCommand(['Route00001', package1.id, package2.id], app_data)
 bulk_ass.execute()
 create_route.execute()
+bulk_ass.execute()
 
 app_data._routes.append(route)
 print(app_data.delivered_packages())

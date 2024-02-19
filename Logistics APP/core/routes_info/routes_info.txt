@@ -44,3 +44,8 @@
 {'route_id': 'Route00001', 'start_location': 'Sydney', 'end_location': 'Adelaide', 'departure_time': datetime.datetime(2024, 2, 20, 6, 0), 'expected_arrival_time': None, 'assigned_truck': None}
 {'route_id': 'Route00001', 'start_location': 'Sydney', 'end_location': 'Adelaide', 'departure_time': datetime.datetime(2024, 2, 20, 6, 0), 'expected_arrival_time': None, 'assigned_truck': None}
 {'route_id': 'Route00001', 'start_location': 'Sydney', 'end_location': 'Adelaide', 'departure_time': datetime.datetime(2024, 2, 20, 6, 0), 'expected_arrival_time': None, 'assigned_truck': None}
+{'route_id': 'Route00001', 'start_location': 'Sydney', 'end_location': 'Brisbane', 'departure_time': datetime.datetime(2024, 2, 20, 6, 0), 'expected_arrival_time': None, 'assigned_truck': None}
+{'route_id': 'Route00001', 'start_location': 'Sydney', 'end_location': 'Brisbane', 'departure_time': datetime.datetime(2024, 2, 20, 6, 0), 'expected_arrival_time': None, 'assigned_truck': None}
+{'route_id': 'Route00001', 'start_location': 'Sydney', 'end_location': 'Brisbane', 'departure_time': datetime.datetime(2024, 2, 20, 6, 0), 'expected_arrival_time': None, 'assigned_truck': None}
+{'route_id': 'Route00001', 'start_location': 'Sydney', 'end_location': 'Brisbane', 'departure_time': datetime.datetime(2024, 2, 20, 6, 0), 'expected_arrival_time': None, 'assigned_truck': None}
+{'route_id': 'Route00001', 'start_location': 'Sydney', 'end_location': 'Brisbane', 'departure_time': datetime.datetime(2024, 2, 20, 6, 0), 'expected_arrival_time': None, 'assigned_truck': None}
