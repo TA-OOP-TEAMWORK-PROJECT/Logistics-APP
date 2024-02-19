@@ -151,15 +151,14 @@ class ApplicationData:
 
     def completed_routes(self):
         time_now = datetime.now()
-        remaining_routes = []
 
         for route in self._routes:
             if route.expected_arrival_time >= time_now:
-                route.assigned_truck.release()
-                print(f"Truck {route.assigned_truck.truck_id} successfully released.")
-            else:
-                remaining_routes.append(route)
-        self._routes = remaining_routes
+                for package in route.packages:
+                    package.status = PackageStatus.DELIVERED
+                if route.assigned_truck is not None:
+                    route.assigned_truck.release()
+                    print(f"Truck {route.assigned_truck.truck_id} successfully released.")
 
 
     def route_progress(self):
@@ -177,9 +176,9 @@ class ApplicationData:
         delivered_package_ids = []
         for route in self._routes:
             for package in route.packages:
-                for k, v in route.route.items():
-                    if k == package.end_location and v.day >= datetime.now().day and not package.status == PackageStatus.DELIVERED:
-                        package.status = PackageStatus.DELIVERED
+                if package.status == PackageStatus.DELIVERED:
+                    delivered_package_ids.append(package.id)
+
         if not delivered_package_ids:
             raise ValueError('No package has reached a final destination yet!')
 

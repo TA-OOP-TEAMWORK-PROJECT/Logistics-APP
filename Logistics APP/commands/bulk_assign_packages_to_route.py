@@ -11,7 +11,6 @@ class BulkAssignPackagesToRouteCommand:
         
 
     def execute(self):
-        self.app_data.delivered_packages()
         route = self.app_data.find_route(self.route_id)
         packages = self.checker_package_id(route)
         route_distance = self.distances.calculate_total_route_distance(route.route)
