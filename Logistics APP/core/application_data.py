@@ -73,6 +73,7 @@ class ApplicationData:
                 return package
 
     def show_route_by_start_end_location(self, start, end):
+
         for route in self._routes:
             if route.start_location == start and route.end_location == end:
                 return route
@@ -164,9 +165,6 @@ class ApplicationData:
                     if k == package.end_location and v.day >= datetime.now().day and not package.status == PackageStatus.DELIVERED:
                         package.status = PackageStatus.DELIVERED
                         delivered_package_ids.append(package.id)
-        if not delivered_package_ids:
-            raise ValueError('No package has reached a final destination yet!')
-
         return delivered_package_ids
 
 
