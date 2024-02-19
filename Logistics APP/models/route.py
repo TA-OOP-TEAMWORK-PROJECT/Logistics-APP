@@ -2,7 +2,6 @@ import os
 from datetime import datetime, timedelta
 from generate_id.id_generator import RouteIdGenerator
 from models.distances import CitiesDistances
-from models.event_log import EventLog
 from models.actros import Actros
 from models.man import Man
 from models.scania import Scania
@@ -20,44 +19,11 @@ class Route:
         self.assigned_truck: Actros | Man | Scania | None = None
         self.route = {}     #start_location: self.departure_time, end_location:self.expected_arrival_time
         self.packages = [] #tuple?
-
         self.save_to_file()
 
     @property
     def load(self):
         return sum(package.weight for package in self.packages)
-
-    def add_package(self, package):
-        if not self.assigned_truck:
-            raise ValueError("No truck assigned to the route yet.")
-        if package.weight + self.current_load() > self.assigned_truck.capacity_kg:
-            raise ValueError("Adding this package would exceed the truck's capacity.")
-        if package.start_location != self.start_location or package.end_location != self.end_location:
-            raise ValueError("Package start or end location does not match the route.")
-        self.packages.append(package)
-
-    def calculate_route_distance(self):
-        locations_sequence = [self.start_location] + [stop['location'] for stop in self.stops] + [self.end_location]
-        return self.distances.calculate_total_route_distance(locations_sequence)
-
-    def truck_is_compatible(self, truck):
-        total_distance = self.calculate_route_distance()
-        if total_distance > truck.max_range_km:
-            return False
-        if sum(package.weight for package in self.packages) + truck.current_load_kg > truck.capacity_kg:
-            return False
-        return True
-
-    def get_truck_instance_by_id(self, truck_id):
-        if truck_id in Actros.actros_id_generator:
-            return Actros(truck_id)
-        elif truck_id in Man.man_id_generator:
-            return Man(truck_id)
-        elif truck_id in Scania.scania_id_generator:
-            return Scania(truck_id)
-        else:
-            raise ValueError(f"Truck ID {truck_id} is not valid !")
-
 
     def info(self):
         return (f"Route ID: {self.route_id}, Start Location: {self.start_location}, "
@@ -161,3 +127,34 @@ class Route:
     # def add_intermediate_stop(self, stop_location, expected_arrival_time):
     #     self.intermediate_stops.append({'location': stop_location, 'expected arrival time': expected_arrival_time})
     #     self.event_logs.append(EventLog(f"Stop added: {stop_location}."))
+
+    # def add_package(self, package):
+#     if not self.assigned_truck:
+#         raise ValueError("No truck assigned to the route yet.")
+#     if package.weight + self.current_load() > self.assigned_truck.capacity_kg:
+#         raise ValueError("Adding this package would exceed the truck's capacity.")
+#     if package.start_location != self.start_location or package.end_location != self.end_location:
+#         raise ValueError("Package start or end location does not match the route.")
+#     self.packages.append(package)
+#
+# def calculate_route_distance(self):
+#     locations_sequence = [self.start_location] + [stop['location'] for stop in self.stops] + [self.end_location]
+#     return self.distances.calculate_total_route_distance(locations_sequence)
+#
+# def truck_is_compatible(self, truck):
+#     total_distance = self.calculate_route_distance()
+#     if total_distance > truck.max_range_km:
+#         return False
+#     if sum(package.weight for package in self.packages) + truck.current_load_kg > truck.capacity_kg:
+#         return False
+#     return True
+#
+# def get_truck_instance_by_id(self, truck_id):
+#     if truck_id in Actros.actros_id_generator:
+#         return Actros(truck_id)
+#     elif truck_id in Man.man_id_generator:
+#         return Man(truck_id)
+#     elif truck_id in Scania.scania_id_generator:
+#         return Scania(truck_id)
+#     else:
+#         raise ValueError(f"Truck ID {truck_id} is not valid !")
