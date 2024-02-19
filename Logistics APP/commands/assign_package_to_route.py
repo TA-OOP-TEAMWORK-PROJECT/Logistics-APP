@@ -2,7 +2,7 @@ from commands.validation_helpers import validate_params_count
 from core.application_data import ApplicationData
 
 
-class AssignPackageToRouteCommand:       #Use case 1
+class AssignPackageToRouteCommand:
     def __init__(self, params, app_data: ApplicationData):
         validate_params_count(list(params), 2, 'AssignPackageToRouteCommand')
         self.route_id = params[0]
@@ -10,14 +10,12 @@ class AssignPackageToRouteCommand:       #Use case 1
         self.app_data = app_data
 
     def execute(self):
-
         route = self.app_data.find_route(self.route_id)
         package = self.app_data.find_package(self.package_id)
         if route and package:
-            # load = self.load_checker(route, package)
             try:
-                load = self.check_destination_load(route, package)
-                self.app_data.assign_package_to_route(package, route)  #TODO DO it to to look better!!!
+                self.check_destination_load(route, package)
+                self.app_data.assign_package_to_route(package, route)
                 return f"Package {self.package_id} assigned to route {self.route_id}."
             except:
                 raise ValueError('No free space to load the package!')
@@ -26,9 +24,8 @@ class AssignPackageToRouteCommand:       #Use case 1
     def check_destination_load(self, possible_route, package):
 
         pak = []
-        end_loc = []
         some_destination_load = package.weight
-        for k,v in possible_route.route.items():  #Преминавам през пътя
+        for k, v in possible_route.route.items():  #Преминавам през пътя
             if k == package.end_location:         # Проверявам дали това е спирката, на която трябва да се разтовари евентуално пратката
                 break
             for i in possible_route.packages:     # Преминавам през пратките, които са асайнати на този път
@@ -41,7 +38,7 @@ class AssignPackageToRouteCommand:       #Use case 1
 
         if some_destination_load <= (possible_route.assigned_truck.capacity_kg - some_destination_load):
             return some_destination_load
-        raise ValueError ('Not enough free space')
+        raise ValueError('Not enough free space')
 
 
 
