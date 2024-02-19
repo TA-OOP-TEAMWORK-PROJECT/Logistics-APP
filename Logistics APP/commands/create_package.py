@@ -6,7 +6,7 @@ from models.customer import Customer
 class CreatePackageCommand:
 
     def __init__(self, params:list[str], app_data: ApplicationData):
-        validate_params_count(params, 4)
+        validate_params_count(list(params), 4, 'CreatePackageCommand')
         self._params = params
         self._app_data = app_data
 

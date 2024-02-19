@@ -4,7 +4,7 @@ from commands.validation_helpers import validate_params_count
 class ViewPackagesCommand:
 
     def __init__(self, params: list[str], app_data: ApplicationData):
-        validate_params_count(params, 2)
+        validate_params_count(list(params), 2, 'ViewPackagesCommand')
         self._params = params
         self._app_data = app_data
 

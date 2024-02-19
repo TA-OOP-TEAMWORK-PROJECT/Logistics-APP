@@ -4,7 +4,7 @@ from core.application_data import ApplicationData
 
 class AssignPackageToRouteCommand:       #Use case 1
     def __init__(self, params, app_data: ApplicationData):
-        validate_params_count(params, 2)
+        validate_params_count(list(params), 2, 'AssignPackageToRouteCommand')
         self.route_id = params[0]
         self.package_id = params[1]
         self.app_data = app_data
