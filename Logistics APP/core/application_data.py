@@ -170,15 +170,13 @@ class ApplicationData:
         return delivered_package_ids
 
 
-
-
-    def route_progress(self):
-        time_now = datetime.now()
-        passed_cities = []
-
-        for route in self._routes:
-            for city, arr_time in route.route.items():
-                if arr_time.day <= time_now.day:
-                    passed_cities.append(city)
-
-        return passed_cities
+    # def route_progress(self):
+    #     time_now = datetime.now()
+    #     passed_cities = []
+    #
+    #     for route in self._routes:
+    #         for city, arr_time in route.route.items():
+    #             if arr_time.day <= time_now.day:
+    #                 passed_cities.append(city)
+    #
+    #     return passed_cities

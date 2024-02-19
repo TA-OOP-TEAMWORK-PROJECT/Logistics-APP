@@ -15,7 +15,7 @@ end
 bulkassignpackagestoroute Route00001 Pkg00001 Pkg00002
 createpackage Sydney Adelaide 50 359888010102
 assignpackagetoroute Route00001 Pkg00003
-exit 
+exit
 
 """
 
