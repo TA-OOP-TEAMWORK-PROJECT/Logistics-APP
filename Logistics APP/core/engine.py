@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 
-from commands.assign_package_to_route import AssignPackageToRouteCommand
 from commands.bulk_assign_packages_to_route import BulkAssignPackagesToRouteCommand
 from commands.create_delivery_route import CreateDeliveryRouteCommand
 from commands.view_package_info_by_id import ViewPackageInfoByIdCommand
