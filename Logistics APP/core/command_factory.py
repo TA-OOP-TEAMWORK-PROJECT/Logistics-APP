@@ -37,7 +37,7 @@ class CommandFactory:
         if cmd_name.lower() == "viewroute":
             return ViewRouteCommand(params, self._app_data)
         if cmd_name.lower() == "viewrouteinprogress":
-            return ViewRoutesInProgressCommand(params, self._app_data)
+            return ViewRoutesInProgressCommand(self._app_data)
         if cmd_name.lower() == "viewunassignedpackages":
             return ViewUnassignedPackagesCommand(self._app_data)
 

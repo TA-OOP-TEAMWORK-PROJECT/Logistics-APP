@@ -5,6 +5,7 @@ from commands.validation_helpers import validate_params_count
 class ViewRouteCommand:
 
     def __init__(self, params: list[str], app_data: ApplicationData):
+        validate_params_count(params, 1, 'viewroute')
         self.route_id = params[0]
         self._app_data = app_data
 
@@ -13,4 +14,4 @@ class ViewRouteCommand:
         if route:
             return route.info()
         else:
-            return f"No route found with ID {self.route_id}"
+            return f'No route found with ID {self.route_id}'
