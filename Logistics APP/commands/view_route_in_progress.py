@@ -1,11 +1,8 @@
-from datetime import datetime,timedelta
 
 from core.application_data import ApplicationData
-from commands.validation_helpers import validate_params_count
-from models.route import Route
 
-class ViewRoutesInProgressCommand:          #Use case 3
-    def __init__(self, app_data: ApplicationData):
+class ViewRoutesInProgressCommand:
+    def __init__(self, params, app_data: ApplicationData):
         self.app_data = app_data
         self.start = params[0]
         self.end = params[1]
