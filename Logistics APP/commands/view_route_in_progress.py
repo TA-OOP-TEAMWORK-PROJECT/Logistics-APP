@@ -17,7 +17,7 @@ class ViewRoutesInProgressCommand:
     def search_routes(self, routes):
         current_routes = []
         for r in routes:
-            cities = list(r.keys())
+            cities = list(r.route.keys())
             if self.start in cities and self.end in cities:
                 if cities.index(self.start) < cities.index(self.end):
                     current_routes.append(r)
@@ -28,7 +28,7 @@ class ViewRoutesInProgressCommand:
         result = ''
 
         for route in suitable_routes:
-            for k, v in route.items():
+            for k, v in route.route.items():
                 result += f' {k} ({v.strftime('%b %dth %H:%Mh')}) →'
 
         return result.strip('→')
