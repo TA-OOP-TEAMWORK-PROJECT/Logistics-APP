@@ -2,7 +2,7 @@ from core.application_data import ApplicationData
 from commands.validation_helpers import validate_params_count
 
 
-class ViewPackageInfoByIdCommand:        #Use Case 5
+class ViewPackageInfoByIdCommand:
     def __init__(self, params, app_data: ApplicationData):
         validate_params_count(list(params), 1, 'ViewPackageInfoByIdCommand')
         self.package_id = params[0]
@@ -16,3 +16,4 @@ class ViewPackageInfoByIdCommand:        #Use Case 5
             return package_on_route.info() if package_on_route else daily_package.info()
         else:
             return f"No package found with ID {self.package_id}"
+

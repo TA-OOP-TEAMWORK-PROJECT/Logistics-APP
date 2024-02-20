@@ -2,7 +2,7 @@ from core.application_data import ApplicationData
 from models.package import Package
 
 
-class ViewUnassignedPackagesCommand:            #Use case 4 
+class ViewUnassignedPackagesCommand:
     def __init__(self, app_data: ApplicationData):
         self.app_data = app_data
 

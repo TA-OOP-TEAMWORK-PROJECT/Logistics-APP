@@ -40,3 +40,4 @@ class BulkAssignPackagesToRouteCommand:
             result += f'{i}\n'
 
         return result.strip()
+

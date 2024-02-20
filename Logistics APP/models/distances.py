@@ -11,7 +11,6 @@ class CitiesDistances:
         }
 
     def get_distance(self, from_location, to_location):
-
         return self.distances[from_location][to_location]
 
 

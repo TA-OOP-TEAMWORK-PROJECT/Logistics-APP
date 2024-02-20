@@ -9,7 +9,6 @@ class EventLog:
         self._description = description
         self._timestamp = datetime.now().strftime("%Y/%m/%d, %X")
 
-
     @property
     def description(self):
         return self._description

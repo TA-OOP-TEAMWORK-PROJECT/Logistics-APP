@@ -3,15 +3,16 @@ from generate_id.id_generator import PackageIdGenerator
 from models.package_status import PackageStatus
 from models.customer import Customer
 
+
 class Package:
 
     def __init__(self, start_location, end_location, weight, customer):
         self.id = PackageIdGenerator.generate_next_package_id()
         self.start_location = start_location
         self.end_location = end_location
-        self._weight = weight
-        self.customer = customer   #for customer information
-        self.route = None    # classROUTE
+        self.weight = weight
+        self.customer = customer
+        self.route = None
         self.status = PackageStatus.NOT_ASSIGNED
         self.save_to_file()
 
@@ -41,8 +42,8 @@ class Package:
 
     @weight.setter
     def weight(self, value):
-        if not 0 < value <= 42000:
-            raise ValueError('Package can not be less or equal to 0!') #!!!!
+        if not 0 < float(value) <= 42000:
+            raise ValueError('Package can not be less or equal to 0!')
         self._weight = value
 
     def info(self):

@@ -17,8 +17,8 @@ class Route:
         self.departure_time = parse_departure_time()
         self.expected_arrival_time = None
         self.assigned_truck: Actros | Man | Scania | None = None
-        self.route = {}     #start_location: self.departure_time, end_location:self.expected_arrival_time
-        self.packages = [] #tuple?
+        self.route = {}
+        self.packages = []
         self.save_to_file()
 
     def load(self):
@@ -29,7 +29,7 @@ class Route:
                 f"End Location: {self.end_location}, Departure Time: {self.departure_time.strftime('%b %dth %H:%Mh')}, "
                 f"Expected Arrival Time: {self.expected_arrival_time.strftime('%b %dth %H:%Mh')},  "
                 f"Assigned Truck: {self.assigned_truck.truck_id if self.assigned_truck else 'None'}")
-# f"{Sydney} (Oct 12th 06:00h) → Melbourne (Oct 12th 20:00h) → Adelaide (Oct 13th 15:00h)
+
 
     def is_in_progress(self):
         now = datetime.now()
